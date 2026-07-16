@@ -1,0 +1,24 @@
+[book]
+authors = ["FjordBootCamp"]
+language = "ja"
+multilingual = false
+src = "manuscript"
+title = "FBC Press: Sinatra 教科書"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+additional-css = ["theme/mdbook-book-core.css", "theme/mdbook-book-jp.css", "theme/sinatra-textbook.css"]
+additional-js = ["theme/textbook-footer.js"]
+no-section-label = true
+
+[output.html.search]
+enable = true
+use-boolean-and = true
+
+[output.html.fold]
+enable = true
+level = 1
+
