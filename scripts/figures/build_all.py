@@ -72,23 +72,23 @@ def save(name, elements):
 
 
 def fig_1_1():
-    width, height = 760, 310
+    width, height = 760, 230
     elements = head(
         width,
         height,
         "ブラウザが Web アプリケーションへリクエストを送り、Web アプリケーションがブラウザへレスポンスを返す往復",
     )
     elements += [
-        rect(40, 100, 220, 110, NEUT, LINE, 8),
-        txt(150, 148, "ブラウザ", 22, INK, "middle", "bold"),
-        txt(150, 178, "レスポンスを表示", 14, SUB, "middle"),
-        rect(500, 100, 220, 110, BLUE, ACC, 8),
-        txt(610, 148, "Web アプリケーション", 20, ACC, "middle", "bold"),
-        txt(610, 178, "リクエストを処理", 14, SUB, "middle"),
-        line(270, 125, 488, 125, ACC, 2.5, "arrow"),
-        txt(380, 108, "リクエスト", 16, ACC, "middle", "bold"),
-        line(490, 188, 272, 188, ACC, 2.5, "arrow"),
-        txt(380, 222, "レスポンス", 16, ACC, "middle", "bold"),
+        rect(40, 60, 220, 110, NEUT, LINE, 8),
+        txt(150, 108, "ブラウザ", 22, INK, "middle", "bold"),
+        txt(150, 138, "レスポンスを表示", 14, SUB, "middle"),
+        rect(500, 60, 220, 110, BLUE, ACC, 8),
+        txt(610, 108, "Web アプリケーション", 20, ACC, "middle", "bold"),
+        txt(610, 138, "リクエストを処理", 14, SUB, "middle"),
+        line(270, 85, 488, 85, ACC, 2.5, "arrow"),
+        txt(380, 68, "リクエスト", 16, ACC, "middle", "bold"),
+        line(490, 148, 272, 148, ACC, 2.5, "arrow"),
+        txt(380, 188, "レスポンス", 16, ACC, "middle", "bold"),
     ]
     save("fig-1-1.svg", elements)
 
@@ -99,4 +99,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

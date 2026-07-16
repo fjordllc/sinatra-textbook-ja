@@ -30,14 +30,6 @@ mdbook build
 
 生成物は `book/` に出力されます。
 
-## サンプルアプリの起動
-
-```sh
-bundle exec ruby app.rb
-```
-
-起動後、<http://localhost:4567/> へアクセスします。
-
 ## 執筆・レビュー
 
 - 全体設計: [`OUTLINE.md`](OUTLINE.md)
@@ -47,4 +39,3 @@ bundle exec ruby app.rb
 ## ライセンス
 
 [MIT License](LICENSE)
-

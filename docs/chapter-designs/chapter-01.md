@@ -4,7 +4,7 @@
 
 - 章タイトル: Web アプリケーションはどこで動いているのか
 - 対応する OUTLINE: `OUTLINE.md` 第1章
-- 状態: 執筆開始可能
+- 状態: 完了
 
 ## この章の主張
 
@@ -185,7 +185,8 @@ HTTP/2 と HTTP/3 は通信時の内部表現が異なることを注記で一�
 ## 技術確認に使う資料
 
 - MDN Web Docs「HTTP」: <https://developer.mozilla.org/ja/docs/Web/HTTP>
-- MDN Web Docs「ウェブサーバーとは」: <https://developer.mozilla.org/ja/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server>
+- MDN Web Docs「ウェブサーバーとは」: <https://developer.mozilla.org/ja/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_web_server>
+- Chrome for Developers「Network features reference」: <https://developer.chrome.com/docs/devtools/network/reference/>
 - RFC 9110「HTTP Semantics」: <https://www.rfc-editor.org/rfc/rfc9110.html>
 - RFC 9112「HTTP/1.1」: <https://www.rfc-editor.org/rfc/rfc9112.html>
 
@@ -198,4 +199,13 @@ HTTP/2 と HTTP/3 は通信時の内部表現が異なることを注記で一�
 - [x] Network タブでは、ローカルプレビューの本書ページを再読み込みし、文書リクエストの Request URL、Request Method、Status Code、Request Headers、Response Headers、Response または Preview を確認する。
 - [x] Ruby 4.0.6、Sinatra 4.2.1、Puma 8.0.2、Rack 3.2.6 の組み合わせで、起動、リダイレクト、ERB、method override、303、`Rack::Utils.escape_html` を検証した。
 
-すべての条件を満たしたため、第1章の本文執筆を開始できる。
+以上の条件を満たしたうえで、第1章の本文執筆を開始した。
+
+## 完了記録
+
+- 初稿: `manuscript/preface.md`、`manuscript/part1/index.md`、`manuscript/part1/chapter1.md`
+- 初回レビュー: `reviews/chapter-01/01-fbc-mentor.md` から `06-fbc-graduate.md`
+- レビュー統合: `reviews/chapter-01/review-summary.md`
+- 修正記録: `reviews/chapter-01/changes.md`
+- 再レビュー: `reviews/chapter-01/second-review.md`
+- 完了判定: 未解決の `must` なし。第2章の章設計へ進める。
