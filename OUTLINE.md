@@ -224,10 +224,11 @@ REST の詳しい理論は扱いませんが、FBC 外の読者にも単独で�
 - 6.3 ID で映画を探す
 - 6.4 詳細画面でも `h` ヘルパーを使う
 - 6.5 詳細画面には全項目を表示する
-- 6.6 存在しない ID を `halt 404` で扱う
-- 6.7 一覧と詳細の移動導線
-- 6.8 登録成功後の遷移先を映画詳細へ変更する
-- 6.9 Network タブで GET の違いを見る
+- 6.6 紹介文の改行は CSS で扱う
+- 6.7 存在しない ID を `halt 404` で扱う
+- 6.8 一覧と詳細の移動導線
+- 6.9 登録成功後の遷移先を映画詳細へ変更する
+- 6.10 Network タブで GET の違いを見る
 - さらに学ぶ: コレクションと個別リソース、HTML エスケープ
 - ◎ <https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/GET>
 - ○ <https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm>

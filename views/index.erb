@@ -13,6 +13,7 @@
         <th scope="col">タイトル</th>
         <th scope="col">公開年</th>
         <th scope="col">ジャンル</th>
+        <th scope="col">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
           <td><%= h(movie["title"]) %></td>
           <td><%= h(movie["year"]) %></td>
           <td><%= h(movie["genre"]) %></td>
+          <td><a href="/movies/<%= h(movie["id"]) %>">詳細</a></td>
         </tr>
       <% end %>
     </tbody>

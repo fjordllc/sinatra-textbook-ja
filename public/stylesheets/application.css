@@ -81,6 +81,44 @@ button:hover {
   background: #edf3f4;
 }
 
+.movie-detail {
+  max-width: 720px;
+  margin: 24px 0;
+  background: #ffffff;
+}
+
+.movie-detail div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  border: 1px solid #dddddd;
+  border-bottom: 0;
+}
+
+.movie-detail div:last-child {
+  border-bottom: 1px solid #dddddd;
+}
+
+.movie-detail dt,
+.movie-detail dd {
+  margin: 0;
+  padding: 12px 14px;
+}
+
+.movie-detail dt {
+  font-weight: 700;
+  background: #edf3f4;
+}
+
+.movie-description {
+  white-space: pre-line;
+}
+
+@media (max-width: 600px) {
+  .movie-detail div {
+    grid-template-columns: 1fr;
+  }
+}
+
 .movie-form {
   max-width: 640px;
   margin-top: 24px;

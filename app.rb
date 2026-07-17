@@ -21,6 +21,10 @@ def save_movies(movies)
   File.write(MOVIES_FILE, "#{JSON.pretty_generate(movies)}\n")
 end
 
+def find_movie(id)
+  load_movies.find { |movie| movie["id"] == id }
+end
+
 def movie_params
   {
     "title" => params["title"].to_s,
@@ -46,6 +50,13 @@ get "/movies/new" do
   erb :new
 end
 
+get "/movies/:id" do
+  @movie = find_movie(params["id"])
+  halt 404, "映画が見つかりません" if @movie.nil?
+
+  erb :show
+end
+
 post "/movies" do
   @movie = movie_params
   @errors = []
@@ -56,8 +67,9 @@ post "/movies" do
   end
 
   movies = load_movies
-  movies << { "id" => SecureRandom.uuid }.merge(@movie)
+  movie = { "id" => SecureRandom.uuid }.merge(@movie)
+  movies << movie
   save_movies(movies)
 
-  redirect "/movies"
+  redirect "/movies/#{movie["id"]}"
 end
