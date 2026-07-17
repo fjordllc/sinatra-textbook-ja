@@ -1,48 +1,63 @@
 # frozen_string_literal: true
 
+require "json"
+require "rack/utils"
+require "securerandom"
 require "sinatra"
 
-movies = [
+MOVIES_FILE = File.join(__dir__, "data", "movies.json")
+
+helpers do
+  def h(value)
+    Rack::Utils.escape_html(value)
+  end
+end
+
+def load_movies
+  JSON.parse(File.read(MOVIES_FILE))
+end
+
+def save_movies(movies)
+  File.write(MOVIES_FILE, "#{JSON.pretty_generate(movies)}\n")
+end
+
+def movie_params
   {
-    "id" => "b6f5e1c4-4b5f-4a7f-8f8f-3d9d3ef9d001",
-    "title" => "月面喫茶",
-    "director" => "山田アキラ",
-    "year" => "2042",
-    "genre" => "SF",
-    "description" => "月面にある小さな喫茶店を舞台にした物語。"
-  },
-  {
-    "id" => "b6f5e1c4-4b5f-4a7f-8f8f-3d9d3ef9d002",
-    "title" => "北風のリズム",
-    "director" => "佐藤ミナ",
-    "year" => "2038",
-    "genre" => "ドラマ",
-    "description" => "雪の町で古い楽器を修理する人々を描く。"
-  },
-  {
-    "id" => "b6f5e1c4-4b5f-4a7f-8f8f-3d9d3ef9d003",
-    "title" => "週末ロケット",
-    "director" => "鈴木トオル",
-    "year" => "2040",
-    "genre" => "コメディ",
-    "description" => "町工場の仲間たちが小さなロケット作りに挑む。"
+    "title" => params["title"].to_s,
+    "director" => params["director"].to_s,
+    "year" => params["year"].to_s,
+    "genre" => params["genre"].to_s,
+    "description" => params["description"].to_s
   }
-]
+end
 
 get "/" do
   redirect "/movies"
 end
 
 get "/movies" do
-  @movies = movies
+  @movies = load_movies
   erb :index
 end
 
 get "/movies/new" do
+  @movie = {}
+  @errors = []
   erb :new
 end
 
 post "/movies" do
-  content_type :text
-  params.inspect
+  @movie = movie_params
+  @errors = []
+
+  if @movie["title"].strip.empty?
+    @errors << "タイトルを入力してください"
+    return erb :new
+  end
+
+  movies = load_movies
+  movies << { "id" => SecureRandom.uuid }.merge(@movie)
+  save_movies(movies)
+
+  redirect "/movies"
 end

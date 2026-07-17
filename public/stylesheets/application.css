@@ -119,3 +119,22 @@ button:hover {
   align-items: center;
   margin-top: 24px;
 }
+
+.error-messages {
+  max-width: 640px;
+  border: 1px solid #b3261e;
+  border-radius: 4px;
+  padding: 12px 16px;
+  color: #5f1a16;
+  background: #fff0ee;
+}
+
+.error-messages p {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.error-messages ul {
+  margin: 0;
+  padding-left: 24px;
+}
