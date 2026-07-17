@@ -201,5 +201,5 @@ HTTP には、HTTP/1.1、HTTP/2、HTTP/3 という複数のバージョンがあ
 - [HTTP: ハイパーテキスト転送プロトコル - MDN Web Docs](https://developer.mozilla.org/ja/docs/Web/HTTP)
 - [ウェブサーバーとは - MDN Web Docs](https://developer.mozilla.org/ja/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_web_server)
 - [Network features reference - Chrome for Developers](https://developer.chrome.com/docs/devtools/network/reference/)
-- [RFC 9110: HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110.html)
-- [RFC 9112: HTTP/1.1](https://www.rfc-editor.org/rfc/rfc9112.html)
+- [RFC 9110: HTTP Semantics](https://www.rfc-editor.org/info/rfc9110/)
+- [RFC 9112: HTTP/1.1](https://www.rfc-editor.org/info/rfc9112/)

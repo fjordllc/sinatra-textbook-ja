@@ -93,8 +93,44 @@ def fig_1_1():
     save("fig-1-1.svg", elements)
 
 
+def fig_2_1():
+    width, height = 650, 720
+    elements = head(
+        width,
+        height,
+        "ブラウザから届いたリクエストを Puma が受け、Rack の共通インターフェースを介して Sinatra が処理し、レスポンスが逆向きに戻る流れ",
+    )
+
+    elements += [
+        rect(125, 25, 400, 105, NEUT, LINE, 8),
+        txt(325, 72, "ブラウザ", 25, INK, "middle", "bold"),
+        txt(325, 103, "HTTP を送受信", 16, SUB, "middle"),
+        rect(125, 225, 400, 105, NEUT, LINE, 8),
+        txt(325, 272, "Puma", 25, INK, "middle", "bold"),
+        txt(325, 303, "Web サーバー", 16, SUB, "middle"),
+        '<rect x="75" y="405" width="500" height="90" rx="8" '
+        f'fill="{BLUE}" fill-opacity="0.55" stroke="{ACC}" '
+        'stroke-width="2" stroke-dasharray="8 7"/>',
+        txt(325, 444, "Rack の共通インターフェース", 22, ACC, "middle", "bold"),
+        txt(325, 475, "同じ形式で受け渡すための取り決め", 15, SUB, "middle"),
+        rect(125, 590, 400, 105, BLUE, ACC, 8),
+        txt(325, 637, "Sinatra", 25, ACC, "middle", "bold"),
+        txt(325, 668, "ルートを実行", 16, SUB, "middle"),
+        line(235, 140, 235, 213, ACC, 2.5, "arrow"),
+        line(235, 340, 235, 393, ACC, 2.5, "arrow"),
+        line(235, 507, 235, 578, ACC, 2.5, "arrow"),
+        line(415, 578, 415, 507, ACC, 2.5, "arrow"),
+        line(415, 393, 415, 340, ACC, 2.5, "arrow"),
+        line(415, 213, 415, 140, ACC, 2.5, "arrow"),
+        txt(210, 184, "リクエスト ↓", 17, ACC, "middle", "bold"),
+        txt(440, 184, "↑ レスポンス", 17, ACC, "middle", "bold"),
+    ]
+    save("fig-2-1.svg", elements)
+
+
 def main():
     fig_1_1()
+    fig_2_1()
 
 
 if __name__ == "__main__":

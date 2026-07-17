@@ -4,7 +4,7 @@
 
 ## 現在の状態
 
-第1章「Web アプリケーションはどこで動いているのか」の執筆、6 観点の独立レビュー、レビュー統合、修正、再レビューが完了しました。未解決の `must` はありません。第2章の章設計へ進める状態です。
+第2章「Sinatra をはじめる」の章設計、初稿、6 観点の独立レビュー、レビュー統合、修正、再検証、再レビューが完了しました。初回レビューで統合した二つの `must` は解決済みで、再レビューにより第2章を完了しました。完了時点は `chapter-02` タグで公開し、次は第3章の章設計へ進みます。
 
 ## 確定した方針
 
@@ -36,10 +36,7 @@
 
 ## 未解決の課題
 
-- 第2章の執筆前設計を `docs/chapter-designs/chapter-02.md` に作成する。
-- 第2章で `app.rb` を初めて追加し、本文の手順とコードを一致させる。
-- 第2章では `GET /` から `/movies` へのリダイレクトと `GET /movies` のレスポンスを実装し、Network パネルで観察する。
-- 新規リポジトリの GitHub 上の公開先と Cloudflare Pages の設定は未作成である。
+- Cloudflare Pages の設定は未作成である。
 
 ## 関係するファイル
 
@@ -47,6 +44,7 @@
 - `STATUS.md`: 決定事項、未解決事項、作業状況
 - `docs/WRITING_AND_REVIEW_WORKFLOW.md`: 章単位の執筆・レビュー工程
 - `docs/chapter-designs/chapter-01.md`: 第1章の執筆前設計
+- `docs/chapter-designs/chapter-02.md`: 第2章の章設計とレビュー対応状況
 - `reviews/README.md`: レビュー履歴の構成と運用
 - `reviews/templates/`: 初回レビュー、統合、修正記録、再レビューのテンプレート
 - `STYLEGUIDE.md`: 本書固有の執筆・コード・HTTP 表現のルール
@@ -55,6 +53,7 @@
 - `scripts/verify-stack.rb`: 固定技術構成の教材固有機能を確認するスクリプト
 - `scripts/figures/build_all.py`: 図版を再生成する集約スクリプト
 - `reviews/chapter-01/`: 第1章の 6 観点レビュー、統合、修正記録、再レビュー
+- `reviews/chapter-02/`: 第2章の 6 観点レビュー、統合、修正記録、再レビュー
 - `../FBC_Press/STYLE_GUIDE.md`: FBC Press の共通執筆ルール
 - `../FBC_Press/REVIEW_CHECKLIST.md`: 共通レビュー基準
 - `../FBC_Press/CONTEXT_MANAGEMENT.md`: コンテキスト管理ルール
@@ -80,13 +79,22 @@
 - 初回レビューの `must` だった Network 観察条件、初出用語、404 の説明、原稿とコードの不一致を修正した。
 - Chrome のデスクトップ表示と 500 px 幅表示を画像で確認し、見出し、本文、表、図、キャプションに重大な崩れがないことを確認した。
 - 再レビューで未解決の `must` がなく、第2章へ進めると判定した。
+- 第2章の `app.rb` を起動し、`GET /` が 302 と `Location: http://localhost:4567/movies`、`GET /movies` が 200 と「映画図鑑」を返すことを確認した。
+- 第2章初稿を 6 観点で独立してレビューし、二つの `must` と改善案を `review-summary.md` に統合した。
+- Rack を独立した箱から破線の共通インターフェースへ描き直し、図を狭幅向けの縦配置へ変更した。
+- 第2章の mdBook ビルド、内部リンク、Ruby 構文、SVG の XML、デスクトップ・500 px 幅表示を確認した。
+- GitHub CLI の認証を更新し、公開リポジトリ `https://github.com/fjordllc/sinatra-textbook-ja` を作成した。第1章完了時点の `main` と `chapter-01` タグをプッシュ済みである。
+- 公開 URL を別の一時ディレクトリへ clone し、本文どおり `chapter-01` から `chapter-02-work` ブランチを作成できることを確認した。その開始状態には `app.rb` がなく、3 つの環境ファイルがある。
+- 外部リンク検査で第1章の RFC Editor 旧 URL が 404 になることを確認し、200 を返す公式 info ページへ更新した。
+- 第2章の再レビューで未解決の `must` がなく、第3章へ進めると判定した。
+- 第2章完了時点を `chapter-02` タグとして公開リポジトリへプッシュした。
 
 ## 次に行う作業
 
-1. 第2章について、目的、前提、コード変更、Network パネルの観察対象、扱わない範囲を設計する。
-2. 第2章で使う Sinatra、Bundler、Puma、Rack の公式資料を現行バージョンに対して再確認する。
-3. 章設計を確定してから、第2章本文と `app.rb` を同じ作業単位で作成する。
+1. 第3章「HTML をレスポンスとして返す」の章設計を作成する。
+2. 第3章で使う ERB、`views/`、`layout.erb`、`Content-Type` の公式資料と固定バージョンの挙動を確認する。
+3. 章設計を確定してから、第3章本文とサンプルアプリの変更を同じ作業単位で作成する。
 
 ## レビューへの対応状況
 
-第1章の初回レビュー 6 件、`review-summary.md`、`changes.md`、`second-review.md` を保存しました。初回レビューで統合した五つの `must` はすべて解決済みです。`Protocol` 列を第1章へ追加する提案だけを不採用とし、初回の観察対象を増やさない判断理由を記録しました。
+第1章と第2章は完了済みです。第2章の初回レビュー 6 件、`review-summary.md`、`changes.md`、`second-review.md` を保存しました。Rack の図と作業用リポジトリの導線に関する二つの `must` は解決し、再レビューで新たな `must` がないことを確認しました。

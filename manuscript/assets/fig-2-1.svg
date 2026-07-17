@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 720" font-family="sans-serif" role="img" aria-label="ブラウザから届いたリクエストを Puma が受け、Rack の共通インターフェースを介して Sinatra が処理し、レスポンスが逆向きに戻る流れ">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#3a6ea5"/></marker>
+</defs>
+<rect x="125" y="25" width="400" height="105" rx="8" fill="#eef1f5" stroke="#b8c2cc" stroke-width="1.5"/>
+<text x="325" y="72" text-anchor="middle" font-size="25" font-weight="bold" fill="#1f2933">ブラウザ</text>
+<text x="325" y="103" text-anchor="middle" font-size="16" font-weight="normal" fill="#52606d">HTTP を送受信</text>
+<rect x="125" y="225" width="400" height="105" rx="8" fill="#eef1f5" stroke="#b8c2cc" stroke-width="1.5"/>
+<text x="325" y="272" text-anchor="middle" font-size="25" font-weight="bold" fill="#1f2933">Puma</text>
+<text x="325" y="303" text-anchor="middle" font-size="16" font-weight="normal" fill="#52606d">Web サーバー</text>
+<rect x="75" y="405" width="500" height="90" rx="8" fill="#dce9f2" fill-opacity="0.55" stroke="#3a6ea5" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="325" y="444" text-anchor="middle" font-size="22" font-weight="bold" fill="#3a6ea5">Rack の共通インターフェース</text>
+<text x="325" y="475" text-anchor="middle" font-size="15" font-weight="normal" fill="#52606d">同じ形式で受け渡すための取り決め</text>
+<rect x="125" y="590" width="400" height="105" rx="8" fill="#dce9f2" stroke="#3a6ea5" stroke-width="1.5"/>
+<text x="325" y="637" text-anchor="middle" font-size="25" font-weight="bold" fill="#3a6ea5">Sinatra</text>
+<text x="325" y="668" text-anchor="middle" font-size="16" font-weight="normal" fill="#52606d">ルートを実行</text>
+<line x1="235" y1="140" x2="235" y2="213" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="235" y1="340" x2="235" y2="393" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="235" y1="507" x2="235" y2="578" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="415" y1="578" x2="415" y2="507" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="415" y1="393" x2="415" y2="340" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="415" y1="213" x2="415" y2="140" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="210" y="184" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a6ea5">リクエスト ↓</text>
+<text x="440" y="184" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a6ea5">↑ レスポンス</text>
+</svg>
