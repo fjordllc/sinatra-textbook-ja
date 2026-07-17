@@ -19,6 +19,11 @@
   </div>
 </dl>
 
-<p>
+<div class="page-actions">
   <a href="/movies">一覧へ戻る</a>
-</p>
+  <a class="button-link" href="/movies/<%= h(@movie["id"]) %>/edit">編集する</a>
+  <form action="/movies/<%= h(@movie["id"]) %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit" class="danger-button">削除する</button>
+  </form>
+</div>

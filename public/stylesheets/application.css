@@ -57,6 +57,15 @@ button:hover {
   background: #173c48;
 }
 
+.danger-button {
+  border-color: #8c1d18;
+  background: #8c1d18;
+}
+
+.danger-button:hover {
+  background: #681410;
+}
+
 .table-scroll {
   overflow-x: auto;
 }
@@ -156,6 +165,18 @@ button:hover {
   gap: 12px;
   align-items: center;
   margin-top: 24px;
+}
+
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.page-actions form {
+  margin: 0;
 }
 
 .error-messages {

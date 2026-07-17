@@ -5,6 +5,8 @@ require "rack/utils"
 require "securerandom"
 require "sinatra"
 
+enable :method_override
+
 MOVIES_FILE = File.join(__dir__, "data", "movies.json")
 
 helpers do
@@ -23,6 +25,10 @@ end
 
 def find_movie(id)
   load_movies.find { |movie| movie["id"] == id }
+end
+
+def find_movie_from(movies, id)
+  movies.find { |movie| movie["id"] == id }
 end
 
 def movie_params
@@ -50,6 +56,14 @@ get "/movies/new" do
   erb :new
 end
 
+get "/movies/:id/edit" do
+  @movie = find_movie(params["id"])
+  halt 404, "映画が見つかりません" if @movie.nil?
+
+  @errors = []
+  erb :edit
+end
+
 get "/movies/:id" do
   @movie = find_movie(params["id"])
   halt 404, "映画が見つかりません" if @movie.nil?
@@ -72,4 +86,34 @@ post "/movies" do
   save_movies(movies)
 
   redirect "/movies/#{movie["id"]}"
+end
+
+patch "/movies/:id" do
+  movies = load_movies
+  movie = find_movie_from(movies, params["id"])
+  halt 404, "映画が見つかりません" if movie.nil?
+
+  @movie = movie.merge(movie_params)
+  @errors = []
+
+  if @movie["title"].strip.empty?
+    @errors << "タイトルを入力してください"
+    return erb :edit
+  end
+
+  movie.merge!(@movie)
+  save_movies(movies)
+
+  redirect "/movies/#{movie["id"]}"
+end
+
+delete "/movies/:id" do
+  movies = load_movies
+  movie = find_movie_from(movies, params["id"])
+  halt 404, "映画が見つかりません" if movie.nil?
+
+  movies.delete(movie)
+  save_movies(movies)
+
+  redirect "/movies"
 end

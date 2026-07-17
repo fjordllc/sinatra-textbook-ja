@@ -4,7 +4,7 @@
 
 ## 現在の状態
 
-第6章「一覧と詳細でリソースを分ける」の章設計、初稿、6 観点の独立レビュー、レビュー統合、修正、再検証、再レビューが完了しました。初回レビューで未解決の `must` はなく、`should` の補足を反映したうえで再レビューにより第6章を完了しました。次は第6章完了時点を `chapter-06` タグとして公開し、第7章の章設計へ進みます。
+第7章「編集と削除で CRUD を完成させる」の章設計、初稿、6 観点の独立レビュー、レビュー統合、修正、再検証、再レビューが完了しました。初回レビューで未解決の `must` はなく、`should` の補足を反映したうえで再レビューにより第7章を完了しました。次は第7章完了時点を `chapter-07` タグとして公開し、第8章の章設計へ進みます。
 
 ## 確定した方針
 
@@ -72,6 +72,9 @@
 - `docs/chapter-designs/chapter-06.md`: 第6章の章設計とレビュー対応状況
 - `reviews/chapter-06/`: 第6章の 6 観点レビュー、統合、修正記録、再レビュー
 - `views/show.erb`: 第6章で追加した映画詳細ビュー
+- `docs/chapter-designs/chapter-07.md`: 第7章の章設計とレビュー対応状況
+- `reviews/chapter-07/`: 第7章の 6 観点レビュー、統合、修正記録、再レビュー
+- `views/edit.erb`: 第7章で追加した映画編集ビュー
 
 ## 実行・検証結果
 
@@ -147,12 +150,24 @@
 - 正常な `POST /movies` が `303 See Other` と `Location: http://127.0.0.1:4567/movies/:id` を返し、登録後の詳細画面に作成した映画が表示されることを確認した。確認後、`data/movies.json` は初期状態へ戻した。
 - 第6章の Ruby 構文、mdBook ビルド、内部リンク、外部リンクを確認した。
 - 第6章の再レビューで未解決の `must` がなく、第7章へ進めると判定した。
+- 第7章の章設計を作成し、`enable :method_override`、編集画面、PATCH 更新、DELETE 削除、Network タブと Sinatra ログの観察を範囲として確定した。
+- 第7章終了時点の `app.rb`、`views/show.erb`、`views/edit.erb`、`public/stylesheets/application.css` を実装した。
+- 第7章初稿を 6 観点で独立してレビューし、未解決の `must` がないことを確認した。`should` と一部の `could` を `review-summary.md` に統合した。
+- `views/show.erb`、`views/edit.erb`、第7章追加 CSS の完成コード、`merge` と `merge!` の違い、第8章への橋渡し、CRUD 完成のまとめを本文へ反映した。
+- `GET /movies/:id/edit` が `200 OK` と編集フォームを返し、`_method=patch` と登録済みの値が含まれることを確認した。
+- `_method=patch` を含む `POST /movies/:id` が Sinatra 側で `PATCH /movies/:id` として処理され、成功時に `303 See Other` と詳細画面への `Location` を返すことを確認した。
+- 更新時にタイトルを空にすると保存せず、エラーメッセージ付き編集フォームを返し、入力値が保持されることを確認した。
+- 詳細画面に更新後の値と `_method=delete` を含む削除フォームが表示されることを確認した。
+- `_method=delete` を含む `POST /movies/:id` が Sinatra 側で `DELETE /movies/:id` として処理され、成功時に `303 See Other` と一覧画面への `Location` を返すことを確認した。
+- 削除後、削除した映画の詳細 URL が `404 Not Found` になることを確認した。確認後、`data/movies.json` は初期状態へ戻した。
+- 第7章の Ruby 構文、mdBook ビルド、内部リンク、外部リンクを確認した。
+- 第7章の再レビューで未解決の `must` がなく、第8章へ進めると判定した。
 
 ## 次に行う作業
 
-1. 第6章完了時点をコミットし、`chapter-06` タグとして公開リポジトリへプッシュする。
-2. 第7章「編集と削除で CRUD を完成させる」の章設計を作成する。
+1. 第7章完了時点をコミットし、`chapter-07` タグとして公開リポジトリへプッシュする。
+2. 第8章「リダイレクトは二つのリクエストをつなぐ」の章設計を作成する。
 
 ## レビューへの対応状況
 
-第1章から第6章は完了済みです。第6章の初回レビュー 6 件、`review-summary.md`、`changes.md`、`second-review.md` を保存しました。未解決の `must` はなく、採用した `should` は修正済みです。再レビューで新たな `must` がないことを確認しました。
+第1章から第7章は完了済みです。第7章の初回レビュー 6 件、`review-summary.md`、`changes.md`、`second-review.md` を保存しました。未解決の `must` はなく、採用した `should` は修正済みです。再レビューで新たな `must` がないことを確認しました。
