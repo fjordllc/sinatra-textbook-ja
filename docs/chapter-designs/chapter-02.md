@@ -94,8 +94,8 @@ end
 - Puma はブラウザから HTTP リクエストを受け取る Web サーバーである。
 - Rack は Ruby の Web サーバーと Web アプリケーションの間で、リクエストとレスポンスを受け渡す共通のインターフェースを定める。
 - Sinatra は Rack アプリケーションであり、ルーティングを Ruby で書くための DSL を提供する。
-- `require "sinatra"` を使い、トップレベルへルートを書く Classic Style を採用する。
-- 一つの小さなアプリを一つのファイルから始める本書では Classic Style が理解しやすい。Modular Style の書き方や比較は扱わない。
+- `require "sinatra"` を使い、トップレベルへルートを書くクラシックスタイル（Classic Style）を採用する。
+- 一つの小さなアプリを一つのファイルから始める本書ではクラシックスタイルが理解しやすい。モジュラースタイル（Modular Style）の書き方や比較は扱わない。
 - Rails も Rack の上で動くことを一文だけ示し、Rails の内部構造へ進まない。
 
 ## 節ごとの展開
@@ -194,7 +194,7 @@ end
 - PRG パターンの名前と目的
 - 303 See Other の採用判断
 - Rack の env ハッシュ、レスポンス配列、middleware の詳細
-- Modular Style、`config.ru`、`rackup` による起動
+- モジュラースタイル、`config.ru`、`rackup` による起動
 - 自動リロード用 Gem
 - Ruby のインストール方法とバージョン管理ツールの比較
 - Git と GitHub の基本操作
@@ -223,7 +223,7 @@ end
 
 - [x] Ruby 4.0.6、Sinatra 4.2.1、Puma 8.0.2、Rack 3.2.6 の起動構成を検証済みである。
 - [x] `redirect "/movies"` が `GET /` に対して 302 と Location ヘッダーを返すことを固定バージョンのソースと実動作で確認済みである。
-- [x] Classic Style、ルートの戻り値、Puma と Rack の関係を Sinatra 公式資料で確認した。
+- [x] クラシックスタイル、ルートの戻り値、Puma と Rack の関係を Sinatra 公式資料で確認した。
 - [x] Bundler と `bundle exec` の説明を Bundler 公式資料で確認した。
 - [x] 図 2-1 を生成し、XML と表示を確認する。
 - [x] 章終了時点の `app.rb` を追加し、起動と HTTP 応答を再検証する。

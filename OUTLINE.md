@@ -25,7 +25,7 @@ REST の詳しい理論は扱いませんが、FBC 外の読者にも単独で�
 
 - Ruby 4.0.6 を `.ruby-version` で固定する。
 - Sinatra は 4.2 系を `Gemfile` に明記し、`Gemfile.lock` で実際のバージョンを固定する。
-- Sinatra の Classic Style を利用する。
+- Sinatra のクラシックスタイル（Classic Style）を利用する。
 - Web サーバーには Puma を利用する。
 - 起動コマンドは `bundle exec ruby app.rb` に統一する。
 - コマンド例には原則として `bundle exec` を付ける。
@@ -82,7 +82,7 @@ REST の詳しい理論は扱いませんが、FBC 外の読者にも単独で�
 - 2.1 Sinatra は Ruby でレスポンスを書くための道具
 - 2.2 `.ruby-version`、`Gemfile`、`Gemfile.lock` の役割
 - 2.3 Bundler と Puma を含む開発環境
-- 2.4 Sinatra の Classic Style と Rack の関係
+- 2.4 Sinatra のクラシックスタイルと Rack の関係
 - 2.5 最小の `app.rb`
 - 2.6 `bundle exec ruby app.rb` で起動する
 - 2.7 `GET /` に文字列を返す

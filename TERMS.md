@@ -26,6 +26,10 @@
 | エスケープ | サニタイズ、無害化 | HTML の文脈に応じた文字参照への変換を指す |
 | クロスサイトスクリプティング（XSS） | XSS 攻撃 | 初出で日本語名と略称を併記し、以後は XSS とする |
 | 入力チェック | バリデーション | 本書で扱うタイトル必須の確認には平易な表記を使う |
+| アクセシビリティ | Accessibility | 一般概念としてはカタカナで書く |
+| サイト | Site | 一般名詞としてはカタカナで書く。コードのクラス名 `site-title` などは変更しない |
+| クラシックスタイル（Classic Style） | Classic Style | Sinatra の書き方として初出で英語を併記し、以後はカタカナを優先する |
+| モジュラースタイル（Modular Style） | Modular Style | クラシックスタイルとの対比で出す場合だけ扱う |
 | JSON ファイル | JSONデータ | 保存媒体を指す場合に使う |
 | ID | 識別子 | 初出で「データを一意に識別する値」と説明する |
 | UUID | UUID v4 | `SecureRandom.uuid` の結果を指し、方式や衝突確率は深掘りしない |
@@ -35,6 +39,20 @@
 | 公開年 | 年、制作年 | `year` の画面上の名称として統一する |
 | Chrome DevTools | 開発者ツール、デベロッパーツール | 初出で Google Chrome の開発者向け機能と説明する |
 | Network タブ | ネットワークタブ | Chrome の画面上の英語表記に合わせる |
+| リクエストヘッダー | Request Headers | 一般概念としてはカタカナで書く。Chrome DevTools の画面ラベルを指す場合は `Request Headers` と書いてよい |
+| レスポンスヘッダー | Response Headers | 一般概念としてはカタカナで書く。Chrome DevTools の画面ラベルを指す場合は `Response Headers` と書いてよい |
+| フォームデータ | Form Data | 一般概念としてはカタカナで書く。Chrome DevTools の画面ラベルを指す場合は `Form Data` と書いてよい |
+
+## 英語表記を残すもの
+
+次のものは、公式名、コード、画面上のラベルとして英語表記を残します。
+
+- Ruby、Sinatra、Rack、Puma、Bundler などの製品名・ライブラリ名
+- HTML、CSS、HTTP、JSON、UUID などの技術名・略語
+- `GET`、`POST`、`PATCH`、`DELETE` などの HTTP メソッド
+- `Content-Type`、`Location` などのヘッダー名
+- `Request URL`、`Request Method`、`Status Code`、`Payload`、`Response` など Chrome DevTools の画面ラベル
+- ファイル名、ディレクトリ名、コード上のクラス名や変数名
 
 ## コード上の名前
 
