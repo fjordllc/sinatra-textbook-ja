@@ -37,3 +37,12 @@ get "/movies" do
   @movies = movies
   erb :index
 end
+
+get "/movies/new" do
+  erb :new
+end
+
+post "/movies" do
+  content_type :text
+  params.inspect
+end

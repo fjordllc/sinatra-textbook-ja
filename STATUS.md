@@ -4,7 +4,7 @@
 
 ## 現在の状態
 
-第3章「HTML をレスポンスとして返す」の章設計、初稿、6 観点の独立レビュー、レビュー統合、修正、再検証、再レビューが完了しました。初回レビューで統合した二つの `must` は解決済みで、再レビューにより第3章を完了しました。完了時点は `chapter-03` タグで公開し、次は第4章の章設計へ進みます。
+第4章「フォームはリクエストを作る」の章設計、初稿、6 観点の独立レビュー、レビュー統合、修正、再検証、再レビューが完了しました。初回レビューで統合した二つの `must` は解決済みで、再レビューにより第4章を完了しました。完了時点は `chapter-04` タグで公開し、次は第5章の章設計へ進みます。
 
 ## 確定した方針
 
@@ -59,6 +59,9 @@
 - `views/layout.erb`: 第3章で追加した共通レイアウト
 - `views/index.erb`: 第3章で追加した映画一覧ビュー
 - `public/stylesheets/application.css`: 第3章で追加した最小限の CSS
+- `docs/chapter-designs/chapter-04.md`: 第4章の章設計とレビュー対応状況
+- `reviews/chapter-04/`: 第4章の 6 観点レビュー、統合、修正記録、再レビュー
+- `views/new.erb`: 第4章で追加した映画登録フォーム
 - `../FBC_Press/STYLE_GUIDE.md`: FBC Press の共通執筆ルール
 - `../FBC_Press/REVIEW_CHECKLIST.md`: 共通レビュー基準
 - `../FBC_Press/CONTEXT_MANAGEMENT.md`: コンテキスト管理ルール
@@ -103,13 +106,24 @@
 - 第3章の mdBook ビルド、内部リンク、外部リンク、Ruby 構文を確認した。
 - Browser skill 用の Node 実行ツールが公開されていなかったため、実ブラウザのスクリーンショット確認は未実施。HTTP 応答、生成 HTML、CSS、ビルド、リンク検査で代替確認した。
 - 第3章の再レビューで未解決の `must` がなく、第4章へ進めると判定した。
+- 第3章完了時点を `chapter-03` タグとして公開リポジトリへプッシュした。
+- 第4章の章設計を作成し、`GET /movies/new`、映画登録フォーム、`POST /movies`、`params`、Network パネルの Form Data 観察までを範囲として確定した。
+- 第4章終了時点の `app.rb`、`views/index.erb`、`views/new.erb`、`public/stylesheets/application.css` を実装した。
+- `GET /movies/new` が `200 OK` と `Content-Type: text/html;charset=utf-8` を返し、フォーム HTML に `action="/movies"`、`method="post"`、各 `name`、送信ボタンが含まれることを確認した。
+- `POST /movies` が `200 OK` と `Content-Type: text/plain;charset=utf-8` を返し、`params.inspect` に `title`、`director`、`year`、`genre`、`description` のキーと入力値が含まれることを確認した。
+- タイトル空欄送信で `"title" => ""` と表示されることを確認した。
+- 第4章初稿を 6 観点で独立してレビューし、二つの `must` と改善案を `review-summary.md` に統合した。
+- 章末の完成コード不足を解消し、`views/index.erb` と第4章で追加した CSS を本文に追加した。
+- `params.inspect` が第4章だけの確認用であり、第5章で保存処理とリダイレクトに置き換えることを本文に明記した。
+- 第4章の mdBook ビルド、内部リンク、外部リンク、Ruby 構文を確認した。
+- 第4章の再レビューで未解決の `must` がなく、第5章へ進めると判定した。
 
 ## 次に行う作業
 
-1. 第3章完了時点を `chapter-03` タグとして公開リポジトリへプッシュする。
-2. 第4章「フォームはリクエストを作る」の章設計を作成する。
-3. 第4章で使う `GET /movies/new`、フォーム要素、`POST /movies`、`params`、Network パネルの Form Data の公式資料と固定バージョンの挙動を確認する。
+1. 第4章完了時点を `chapter-04` タグとして公開リポジトリへプッシュする。
+2. 第5章「JSON ファイルに映画を保存する」の章設計を作成する。
+3. 第5章で使う `data/movies.json`、JSON 読み書き、`SecureRandom.uuid`、タイトル必須チェック、登録後リダイレクトの公式資料と固定バージョンの挙動を確認する。
 
 ## レビューへの対応状況
 
-第1章から第3章は完了済みです。第3章の初回レビュー 6 件、`review-summary.md`、`changes.md`、`second-review.md` を保存しました。章末の完成コード不足と ERB 出力の安全性への橋渡しに関する二つの `must` は解決し、再レビューで新たな `must` がないことを確認しました。
+第1章から第4章は完了済みです。第4章の初回レビュー 6 件、`review-summary.md`、`changes.md`、`second-review.md` を保存しました。章末の完成コード不足と `params.inspect` が確認用であることの明示に関する二つの `must` は解決し、再レビューで新たな `must` がないことを確認しました。

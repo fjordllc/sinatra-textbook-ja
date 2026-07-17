@@ -1,0 +1,43 @@
+<h1>映画登録</h1>
+
+<p>登録したい映画の情報を入力します。</p>
+
+<form class="movie-form" action="/movies" method="post">
+  <div class="form-field">
+    <label for="title">タイトル</label>
+    <input type="text" id="title" name="title">
+  </div>
+
+  <div class="form-field">
+    <label for="director">監督</label>
+    <input type="text" id="director" name="director">
+  </div>
+
+  <div class="form-field">
+    <label for="year">公開年</label>
+    <input type="text" id="year" name="year">
+  </div>
+
+  <div class="form-field">
+    <label for="genre">ジャンル</label>
+    <select id="genre" name="genre">
+      <option value="アクション">アクション</option>
+      <option value="コメディ">コメディ</option>
+      <option value="ドラマ">ドラマ</option>
+      <option value="ホラー">ホラー</option>
+      <option value="SF">SF</option>
+      <option value="アニメーション">アニメーション</option>
+      <option value="その他">その他</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="description">紹介文</label>
+    <textarea id="description" name="description" rows="5"></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit">送信内容を確認</button>
+    <a href="/movies">一覧へ戻る</a>
+  </div>
+</form>
