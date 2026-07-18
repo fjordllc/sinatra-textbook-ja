@@ -58,7 +58,10 @@ end
 
 get "/movies/:id/edit" do
   @movie = find_movie(params["id"])
-  halt 404, "映画が見つかりません" if @movie.nil?
+  if @movie.nil?
+    status 404
+    return erb :not_found
+  end
 
   @errors = []
   erb :edit
@@ -66,7 +69,10 @@ end
 
 get "/movies/:id" do
   @movie = find_movie(params["id"])
-  halt 404, "映画が見つかりません" if @movie.nil?
+  if @movie.nil?
+    status 404
+    return erb :not_found
+  end
 
   erb :show
 end
@@ -91,7 +97,10 @@ end
 patch "/movies/:id" do
   movies = load_movies
   movie = find_movie_from(movies, params["id"])
-  halt 404, "映画が見つかりません" if movie.nil?
+  if movie.nil?
+    status 404
+    return erb :not_found
+  end
 
   @movie = movie.merge(movie_params)
   @errors = []
@@ -110,10 +119,17 @@ end
 delete "/movies/:id" do
   movies = load_movies
   movie = find_movie_from(movies, params["id"])
-  halt 404, "映画が見つかりません" if movie.nil?
+  if movie.nil?
+    status 404
+    return erb :not_found
+  end
 
   movies.delete(movie)
   save_movies(movies)
 
   redirect "/movies"
+end
+
+not_found do
+  erb :not_found
 end
