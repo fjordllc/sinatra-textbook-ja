@@ -5,10 +5,5 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Ruby dependencies
-/.bundle/
-/vendor/bundle/
-
 # mdBook output
 /book/
-

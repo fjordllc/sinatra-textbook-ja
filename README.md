@@ -5,14 +5,6 @@ Sinatra を使って、Web アプリケーション開発の基礎を学ぶ初�
 ## 必要なもの
 
 - mdBook 0.4.52
-- Ruby 4.0.6
-- Bundler 4.0.16
-
-## セットアップ
-
-```sh
-bundle install
-```
 
 ## 書籍のプレビュー
 
@@ -30,13 +22,9 @@ mdbook build
 
 生成物は `book/` に出力されます。
 
-## サンプルアプリの起動
+## サンプルアプリ
 
-```sh
-bundle exec ruby app.rb
-```
-
-起動後、<http://localhost:4567/> へアクセスします。
+本書で作成するサンプルアプリ（`sinatra-movies`）は別リポジトリで管理しています。
 
 ## 執筆・レビュー
 
