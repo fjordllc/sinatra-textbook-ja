@@ -1,10 +1,14 @@
 # Sinatra 教科書 作業状況
 
-最終更新日: 2026 年 7 月 18 日
+最終更新日: 2026 年 7 月 20 日
 
 ## 現在の状態
 
-第1章から第12章の本編、付録Aから付録E、全体の横断レビュー、サンプルアプリの最終検証が完了しました。未解決の `must` はなく、原稿、レビュー履歴、STATUS、サンプルアプリコードは公開リポジトリへ保存済みです。
+第1章から第12章の本編、付録Aから付録E、全体の横断レビュー、サンプルアプリの最終検証が完了しました。未解決の `must` はありません。
+
+2026 年 7 月 20 日に構成を変更しました。**サンプルアプリ（映画図鑑）は、本書リポジトリから独立した別リポジトリ `sinatra-movies` へ分離しました。** 本書リポジトリ（`sinatra-textbook-ja`）は原稿・レビュー履歴・テーマ・スクリプトのみを持ち、`app.rb` / `views/` / `data/` / `public/` / `Gemfile` などのアプリ一式は含みません。あわせて、第2章を「本書リポジトリを clone して章タグから始める」方式から「読者が自分で `sinatra-movies` ディレクトリを作り、`git init` して一からファイルを作るハンズオン」方式へ改訂しました（下部の作業ログ 7/20 分を参照）。
+
+この分離・改訂のコミットは本書リポジトリのローカルにあり、公開リポジトリ（`fjordllc/sinatra-textbook-ja`）へはまだ push していません。`sinatra-movies` の GitHub リポジトリも未作成です。
 
 ## 確定した方針
 
@@ -24,7 +28,8 @@
 - 図版は `scripts/figures/build_all.py` から `manuscript/assets/` へ生成し、手書きの出力 SVG を直接編集しない。
 - 一章ずつ、執筆、6 観点の独立レビュー、レビュー統合、修正、再レビュー、完了判定の順で進める。
 - レビュー履歴は `reviews/chapter-XX/` に保存し、ほかの初回レビューを参照せず各観点のレビューを作成する。
-- `main` は最新の完了章が終わった時点のコードとし、章完了コミットへ `chapter-XX` タグを付ける。
+- `main` は最新の完了章が終わった時点のコードとし、章完了コミットへ `chapter-XX` タグを付ける。（2026-07-20 追記: サンプルアプリを別リポジトリへ分離し、第2章の clone＋章タグ方式を廃止したため、本書リポジトリでのこの運用は取りやめる。既存の `chapter-XX` タグの扱いは検討中。）
+- （2026-07-20 追記）サンプルアプリは別リポジトリ `sinatra-movies` で管理する。読者は本書に沿って自分で `sinatra-movies` ディレクトリを作り、ファイルを一から作成するハンズオン方式で進める。
 - 一般概念として本文に出す外来語は、原則としてカタカナ表記にする。公式名、コード、HTTP メソッド、ヘッダー名、Chrome DevTools の画面ラベルは英語表記を残す。
 
 ## 採用しなかった案と理由
@@ -226,10 +231,22 @@
 - XSS 確認用の入力として、タイトルに `<script>alert("xss")</script>`、紹介文に `</textarea><script>alert("xss")</script>` を含む映画を登録し、詳細画面で文字参照として表示されることを確認した。
 - 最終ランタイム確認後、`data/movies.json` を検証前の状態へ復元し、差分が残っていないことを確認した。
 
+### 2026 年 7 月 20 日: サンプルアプリの分離とハンズオン化
+
+- サンプルアプリ一式（`app.rb`、`views/`、`data/`、`public/`、`Gemfile`、`Gemfile.lock`、`.ruby-version`、`.bundle/config`、`scripts/verify-stack.rb`）を新リポジトリ `sinatra-movies`（`/Users/machida/dev/sinatra-movies`）へ移動し、`git init` して初回コミットした。
+- `sinatra-movies` に `README.md`、`.gitignore`、`LICENSE` を用意し、`bundle install` と `bundle exec ruby app.rb` の起動、`GET /movies` が 200 を返すことを確認した。
+- 本書リポジトリからアプリ一式を削除し、`.gitignore`（Ruby 依存の記述を削除）と `README.md`（セットアップ／サンプルアプリ起動の節を整理）を更新した。
+- 第2章 2.2 を「`mkdir sinatra-movies` → `git init`」から始める構成に改訂し、`.ruby-version` と `Gemfile` は読者が作成、`Gemfile.lock` は `bundle install` で生成する流れに変更した。
+- 第3・4章の章開始手順から `git switch -c chapter-0N-work` を削除し、前章末の状態から続ける記述へ変更した。
+- preface に「手を動かして作るハンズオン」節と「なぜ Sinatra で学ぶのか」節を追加した。
+- gem / Bundler / Puma / rackup / Sinatra の説明を丁寧にし、Ruby・Sinatra のバージョンを指定する理由を明記した。
+- `mdbook build` が成功することを確認した。本書リポジトリのコミットは `fa6e294`・`f7e13a7`・（本 STATUS 更新のコミット）。
+
 ## 次に行う作業
 
-1. 最終検証結果を記録した STATUS をコミットし、公開リポジトリへプッシュする。
-2. 完了タグを作成し、公開リポジトリへプッシュする。
+1. 本書リポジトリの分離・改訂コミットを公開リポジトリ（`fjordllc/sinatra-textbook-ja`）へ push する。
+2. `sinatra-movies` を `fjordllc` org 配下の GitHub リポジトリとして作成し、push する（公開/非公開、章タグの要否は要決定）。
+3. 既存の `chapter-01`〜`chapter-12`・`manuscript-complete` タグの扱い（残す／削除）を決める。
 
 ## レビューへの対応状況
 
