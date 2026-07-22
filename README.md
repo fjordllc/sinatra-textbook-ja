@@ -1,4 +1,4 @@
-# FBC Press: Sinatra 教科書
+# FBC Press: Sinatra
 
 Sinatra を使って、Web アプリケーション開発の基礎を学ぶ初学者向けの OSS 技術書です。
 

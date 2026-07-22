@@ -3,7 +3,7 @@ authors = ["FjordBootCamp"]
 language = "ja"
 multilingual = false
 src = "manuscript"
-title = "FBC Press: Sinatra 教科書"
+title = "FBC Press: Sinatra"
 
 [build]
 build-dir = "book"
@@ -21,4 +21,3 @@ use-boolean-and = true
 [output.html.fold]
 enable = true
 level = 1
-

@@ -1,4 +1,4 @@
-# FBC Press: Sinatra 教科書 詳細目次
+# FBC Press: Sinatra 詳細目次
 
 この本は、Sinatra そのものを網羅する本ではありません。Sinatra を使って、Web アプリケーションの基礎、HTTP、リクエストとレスポンス、CRUD、ファイル保存、PRG、XSS、404、デバッグを学ぶ教科書です。
 
