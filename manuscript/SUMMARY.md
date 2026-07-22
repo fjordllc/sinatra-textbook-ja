@@ -24,4 +24,4 @@
   - [付録C ERB Lint](appendix/c.md)
   - [付録D よくあるエラー](appendix/d.md)
   - [付録E さらに学ぶための資料案内](appendix/e.md)
-
+  - [おわりに](appendix/afterword.md)
