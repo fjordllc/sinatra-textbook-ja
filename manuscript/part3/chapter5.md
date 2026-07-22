@@ -491,8 +491,10 @@ end
 
 ## さらに学ぶ
 
-- ◎ Ruby JSON: <https://docs.ruby-lang.org/ja/latest/library/json.html>
-- ◎ Ruby SecureRandom: <https://docs.ruby-lang.org/ja/latest/library/securerandom.html>
-- ◎ Rack Utils: <https://rack.github.io/rack/main/Rack/Utils.html>
-- ◎ Sinatra: <https://sinatrarb.com/intro.html>
-- ◎ MDN HTTP リダイレクト: <https://developer.mozilla.org/ja/docs/Web/HTTP/Redirections>
+この章で使った保存、識別、安全な表示、画面遷移をさらに調べると、登録処理を部品ごとに説明できるようになります。
+
+- [Ruby JSON](https://docs.ruby-lang.org/ja/latest/library/json.html)では、Ruby の配列やハッシュを JSON へ変換する方法と、読み書きで起きる例外を学べます。
+- [Ruby SecureRandom](https://docs.ruby-lang.org/ja/latest/library/securerandom.html)では、UUID を含む推測されにくい識別子を生成する方法を学べます。
+- [Rack Utils](https://rack.github.io/rack/main/Rack/Utils.html)では、HTML エスケープなど、Sinatra の背後で利用できる Web 向け処理を確認できます。
+- [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、`params`、`redirect`、ルーティングがどのように連携するかを詳しく学べます。
+- [MDN HTTP リダイレクト](https://developer.mozilla.org/ja/docs/Web/HTTP/Redirections)では、リダイレクト用ステータスコードの違いと、ブラウザが次の URL へ移動する仕組みを学べます。

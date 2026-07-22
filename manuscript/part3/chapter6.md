@@ -398,5 +398,7 @@ end
 
 ## さらに学ぶ
 
-- ◎ MDN GET: <https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/GET>
-- ◎ Sinatra: <https://sinatrarb.com/intro.html>
+一覧と詳細を作った後は、URL が指す対象と、ルートが値を受け取る仕組みを深めると、別の題材にも応用できます。
+
+- [MDN GET](https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/GET)では、GET が情報を取得するためのメソッドであり、安全性やキャッシュとどのように関係するかを学べます。
+- [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、`/movies/:id` のようなルートパラメーターの受け取り方と、条件に応じて処理を止める方法を学べます。

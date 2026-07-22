@@ -581,8 +581,8 @@ h1 {
 
 ## 参考資料
 
-- ◎ Sinatra 公式 Views / Templates: <https://sinatrarb.com/intro.html#Views%20/%20Templates>
-- ◎ Sinatra 公式 Static Files: <https://sinatrarb.com/intro.html#Static%20Files>
-- ◎ Ruby 公式 ERB: <https://docs.ruby-lang.org/en/4.0/ERB.html>
-- ○ MDN Content-Type: <https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Type>
-- ○ MDN CSS の第一歩: <https://developer.mozilla.org/ja/docs/Learn/CSS/First_steps>
+- Sinatra 公式 Views / Templates: <https://sinatrarb.com/intro.html#Views%20/%20Templates>
+- Sinatra 公式 Static Files: <https://sinatrarb.com/intro.html#Static%20Files>
+- Ruby 公式 ERB: <https://docs.ruby-lang.org/en/4.0/ERB.html>
+- MDN Content-Type: <https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Type>
+- MDN CSS の第一歩: <https://developer.mozilla.org/ja/docs/Learn/CSS/First_steps>

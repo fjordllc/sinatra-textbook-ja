@@ -192,5 +192,7 @@ POST 後に直接 HTML を返してしまった場合、再読み込みで再送
 
 ## さらに学ぶ
 
-- ◎ MDN ブラウザ開発者ツール: <https://developer.mozilla.org/ja/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools>
-- ◎ Sinatra: <https://sinatrarb.com/intro.html>
+不具合を自力で調べる力を伸ばすには、ブラウザとサーバーのどちらで事実を観察できるかを増やしていきます。
+
+- [MDN ブラウザ開発者ツール](https://developer.mozilla.org/ja/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools)では、Network パネルだけでなく、HTML、CSS、JavaScript、コンソールを調べる各ツールの役割を学べます。
+- [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、開発環境のログ、エラー画面、設定を確認し、サーバー側の問題を切り分ける手掛かりを得られます。

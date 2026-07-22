@@ -270,6 +270,8 @@ end
 
 ## さらに学ぶ
 
-- ◎ MDN 404 Not Found: <https://developer.mozilla.org/ja/docs/Web/HTTP/Status/404>
-- ◎ MDN 500 Internal Server Error: <https://developer.mozilla.org/ja/docs/Web/HTTP/Status/500>
-- ◎ Sinatra: <https://sinatrarb.com/intro.html>
+エラー処理をさらに学ぶときは、「要求したものがない状態」と「サーバー内部で処理に失敗した状態」を分けて追います。
+
+- [MDN 404 Not Found](https://developer.mozilla.org/ja/docs/Web/HTTP/Status/404)では、サーバーへ到達していても対象のリソースが見つからない状態を学べます。
+- [MDN 500 Internal Server Error](https://developer.mozilla.org/ja/docs/Web/HTTP/Status/500)では、サーバー側で予期しない失敗が起きたときの一般的な応答を学べます。
+- [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、`halt`、`not_found`、`error` を使い、状態ごとにレスポンスを分ける方法を確認できます。

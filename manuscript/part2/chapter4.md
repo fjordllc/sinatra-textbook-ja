@@ -488,8 +488,8 @@ button:hover {
 
 ## 参考資料
 
-- ◎ MDN `<form>`: <https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form>
-- ◎ MDN Sending form data: <https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Sending_and_retrieving_form_data>
-- ◎ MDN Forms and buttons in HTML: <https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_forms>
-- ◎ MDN POST request method: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST>
-- ○ Sinatra 公式: <https://sinatrarb.com/intro.html>
+- MDN `<form>`: <https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form>
+- MDN Sending form data: <https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Sending_and_retrieving_form_data>
+- MDN Forms and buttons in HTML: <https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_forms>
+- MDN POST request method: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST>
+- Sinatra 公式: <https://sinatrarb.com/intro.html>

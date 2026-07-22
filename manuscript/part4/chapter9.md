@@ -257,7 +257,9 @@ description.gsub("\n", "<br>")
 
 ## さらに学ぶ
 
-- ◎ OWASP XSS: <https://owasp.org/www-community/attacks/xss/>
-- ◎ MDN Cross-site scripting: <https://developer.mozilla.org/ja/docs/Glossary/Cross-site_scripting>
-- ◎ Rack Utils: <https://rack.github.io/rack/main/Rack/Utils.html>
-- ◎ Ruby ERB: <https://docs.ruby-lang.org/ja/latest/library/erb.html>
+入力値を安全に表示する理由を深めるには、攻撃の成立条件と、出力する場所に合ったエスケープを学びます。
+
+- [OWASP XSS](https://owasp.org/www-community/attacks/xss/)では、クロスサイトスクリプティングが成立する仕組み、代表的な種類、基本的な防御を学べます。
+- [MDN Cross-site scripting](https://developer.mozilla.org/ja/docs/Glossary/Cross-site_scripting)では、ブラウザ上で不正なスクリプトが実行される危険を、Web の基礎用語と結び付けて確認できます。
+- [Rack Utils](https://rack.github.io/rack/main/Rack/Utils.html)では、本章の `h` ヘルパーが利用する HTML エスケープ処理を確認できます。
+- [Ruby ERB](https://docs.ruby-lang.org/ja/latest/library/erb.html)では、Ruby の値をテンプレートへ埋め込む記法と、ERB 自体が担当する範囲を学べます。

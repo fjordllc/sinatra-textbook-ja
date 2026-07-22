@@ -486,7 +486,9 @@ end
 
 ## さらに学ぶ
 
-- ◎ MDN PATCH: <https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/PATCH>
-- ◎ MDN DELETE: <https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/DELETE>
-- ◎ Rack MethodOverride: <https://rack.github.io/rack/main/Rack/MethodOverride.html>
-- ◎ Sinatra configuration: <https://sinatrarb.com/configuration>
+編集と削除の先へ進むなら、HTTP メソッドの意味と、HTML フォームの制約を Rack と Sinatra がどう補うかを調べます。
+
+- [MDN PATCH](https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/PATCH)では、リソースの一部を変更する PATCH の意味と、PUT との違いを学べます。
+- [MDN DELETE](https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/DELETE)では、削除を表すメソッドの性質と、同じ要求を繰り返した場合の考え方を学べます。
+- [Rack MethodOverride](https://rack.github.io/rack/main/Rack/MethodOverride.html)では、フォームから送った POST を `_method` の値に応じて PATCH や DELETE として扱う仕組みを確認できます。
+- [Sinatra configuration](https://sinatrarb.com/configuration)では、`method_override` を含む Sinatra の設定項目と、有効化する方法を学べます。

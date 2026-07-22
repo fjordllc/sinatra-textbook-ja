@@ -261,6 +261,8 @@ end
 
 ## さらに学ぶ
 
-- ◎ MDN HTTP リダイレクト: <https://developer.mozilla.org/ja/docs/Web/HTTP/Redirections>
-- ◎ MDN 303 See Other: <https://developer.mozilla.org/ja/docs/Web/HTTP/Status/303>
-- ◎ Sinatra: <https://sinatrarb.com/intro.html>
+確認画面を含む送信の流れを深めるには、リダイレクトの種類と、送信後の再読み込みを安全に扱う設計を調べます。
+
+- [MDN HTTP リダイレクト](https://developer.mozilla.org/ja/docs/Web/HTTP/Redirections)では、恒久的・一時的なリダイレクトの違いと、ブラウザが次の要求を作る仕組みを学べます。
+- [MDN 303 See Other](https://developer.mozilla.org/ja/docs/Web/HTTP/Status/303)では、POST 後に GET で別ページを表示させる 303 の役割を学べます。
+- [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、`redirect` とセッションを使い、複数のリクエストをまたいで画面遷移を組み立てる方法を確認できます。

@@ -200,7 +200,5 @@ Sinatra で手を動かして作った経験は、Rails で隠れている処理
 
 ## さらに学ぶ
 
-- ◎ SQLite Appropriate Uses For SQLite: <https://www.sqlite.org/whentouse.html>
-- ○ Rails Guides Active Record Basics: <https://guides.rubyonrails.org/active_record_basics.html>
-
-SQLite の資料は、データベースにも用途や向き不向きがあることを知る入口として読むとよいでしょう。Rails Guides は、Rails に進んだときに Active Record がどのような役割を持つのかを知る入口です。
+- [SQLite Appropriate Uses For SQLite](https://www.sqlite.org/whentouse.html)では、SQLite が適する用途と、別のデータベースを選ぶ方がよい条件を学べます。
+- [Rails Guides Active Record Basics](https://guides.rubyonrails.org/active_record_basics.html)では、Rails でデータベースの表と Ruby のオブジェクトを結び付ける Active Record の役割を学べます。
