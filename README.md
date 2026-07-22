@@ -24,7 +24,9 @@ mdbook build
 
 ## サンプルアプリ
 
-本書で作成するサンプルアプリ（`sinatra-movies`）は別リポジトリで管理しています。
+本書で作成するサンプルアプリ（`sinatra-movies`）の完成版は、次のリポジトリで公開しています。
+
+- [fjordllc/sinatra-movies](https://github.com/fjordllc/sinatra-movies)
 
 ## 執筆・レビュー
 
