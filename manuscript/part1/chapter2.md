@@ -269,6 +269,11 @@ Location: http://localhost:4567/movies
 
 `302 Found` はリダイレクトを表すステータスコードの一つです。ブラウザは `Location` ヘッダーを読み、新しい `GET /movies` リクエストを送ります。二つ目の `200 OK` のレスポンス本文を受け取ってから、「映画図鑑」を画面へ表示します。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-2.jpg" alt="Network パネルに最初の GET の 302 と、それに続く movies への GET の 200 が順に並び、Location が movies を示す確認例">
+  <figcaption>図 2-2 リダイレクトで発生する二つの GET</figcaption>
+</figure>
+
 起動したターミナルのログにも、次のような二行が表示されます。
 
 ```text

@@ -131,6 +131,11 @@ GET /movies/:id
 
 その後、ブラウザは `GET /movies/:id` を送ります。画面に表示される映画詳細は、この GET へのレスポンスです。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-10.jpg" alt="POST movies、303 See Other と Location、GET movies slash id の三段階を矢印で結んだ PRG の確認例">
+  <figcaption>図 8-1 Post、Redirect、Get の三段階</figcaption>
+</figure>
+
 ## 再読み込みで何が起きるか
 
 登録後に表示されている詳細画面で、ブラウザの再読み込みをしてください。

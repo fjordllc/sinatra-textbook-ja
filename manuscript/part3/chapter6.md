@@ -187,6 +187,11 @@ description.gsub("\n", "<br>")
 
 `href` に映画の ID を埋め込むことで、1 件の映画を表す URL へ移動できます。ID は利用者が直接入力した値ではありませんが、HTML に出力する値として `h` を通します。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-7.jpg" alt="movies の映画一覧画面と movies slash moon-cafe の映画詳細画面を並べ、集合と一件で表示内容が異なることを示した比較">
+  <figcaption>図 6-1 一覧を表す URL と一件を表す URL</figcaption>
+</figure>
+
 ## 登録後は詳細画面へ移動する
 
 第5章では、登録成功後に一覧画面へ戻していました。

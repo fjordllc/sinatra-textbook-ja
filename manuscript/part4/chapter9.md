@@ -88,6 +88,11 @@ HTML レスポンスを見ると、実際には次のように文字参照へ変
 
 確認できたら、すぐに元へ戻します。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-11.jpg" alt="script タグを含む同じ入力について、文字として表示する安全な状態と、HTML として解釈される危険な状態を並べた比較">
+  <figcaption>図 9-1 エスケープした表示とエスケープしない表示の違い</figcaption>
+</figure>
+
 ```erb
 <h1><%= h(@movie["title"]) %></h1>
 ```

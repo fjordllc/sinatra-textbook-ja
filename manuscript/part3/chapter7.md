@@ -131,6 +131,11 @@ end
 
 詳細画面に編集リンクを追加します。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-8.jpg" alt="映画詳細画面の下部に、一覧へ戻る、編集する、削除するの三つの操作が並ぶ完成画面">
+  <figcaption>図 7-1 詳細画面に集まる編集と削除の入口</figcaption>
+</figure>
+
 ```erb
 <a class="button-link" href="/movies/<%= h(@movie["id"]) %>/edit">編集する</a>
 ```
@@ -198,6 +203,11 @@ GET /movies/:id
 ```
 
 ブラウザが実際に送っているのは POST です。Sinatra のログでは、Rack の method override を通過した後の `PATCH /movies/:id` を確認できます。
+
+<figure class="book-figure">
+  <img src="../assets/captures/capture-9.jpg" alt="ブラウザの POST、Form Data の method equals patch、Sinatra ログの PATCH を三段階で対応付けた確認例">
+  <figcaption>図 7-2 POST が method override により PATCH として処理されるまで</figcaption>
+</figure>
 
 削除も同じです。
 

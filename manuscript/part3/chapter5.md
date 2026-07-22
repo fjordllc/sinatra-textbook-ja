@@ -256,6 +256,11 @@ end
 <% end %>
 ```
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-6.jpg" alt="タイトル未入力のエラーメッセージが表示され、監督、公開年、ジャンル、紹介文の入力値は保持されている登録画面">
+  <figcaption>図 5-1 入力エラーと保持された入力内容</figcaption>
+</figure>
+
 ## 保存した値を一覧に表示する
 
 一覧画面でも `h` を使います。

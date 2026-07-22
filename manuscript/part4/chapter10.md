@@ -51,6 +51,11 @@ http://localhost:4567/unknown
 
 Network タブで、このリクエストのステータスコードが `404 Not Found` になっていることを確認してください。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-12.jpg" alt="ページが見つかりませんという画面と、同じリクエストの Network パネルに表示された 404 Not Found を一緒に示す確認例">
+  <figcaption>図 10-1 404ページの表示とHTTPステータス</figcaption>
+</figure>
+
 この 404 ページは、存在しない URL と存在しない映画 ID の両方で使います。本書では、404 の種類ごとにページを出し分けることはしません。まずは、見つからないものに 404 ステータスと戻る導線を返すことを重視します。
 
 ## 存在しない映画 ID を扱う

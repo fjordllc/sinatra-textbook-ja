@@ -88,6 +88,11 @@ end
 
 JSON ファイルを手で直して確認したくなることもあります。その場合は、まずコピーを取ってから編集してください。カンマや引用符を一つ消しただけでも JSON として読めなくなり、別のエラーを増やしてしまいます。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-13.jpg" alt="一回の登録操作について、ブラウザの Form Data、Sinatra の POST とステータス、JSON に保存された値を三列で対応付けた確認例">
+  <figcaption>図 11-1 送信、処理、保存を三つの場所で確認する</figcaption>
+</figure>
+
 ## ERB のエラーを読む
 
 ERB に文法ミスがあると、画面には 500 が表示されることがあります。

@@ -391,6 +391,11 @@ h1 {
 
 次に `GET /stylesheets/application.css` を選びます。こちらの `Content-Type` には `text/css` を含む値が表示され、Response には CSS の内容が入っています。HTML の中に CSS ファイルの中身が埋め込まれているのではありません。ブラウザは、HTML の `link` 要素を見つけて、CSS ファイルを取得するための別の `GET` リクエストを送っています。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-3.jpg" alt="Network パネルに movies の document と application.css の stylesheet が別々の GET として並ぶ確認例">
+  <figcaption>図 3-1 HTML と CSS に対する別々のリクエスト</figcaption>
+</figure>
+
 第2章では `GET /movies` が短い文字列を返していました。この章では、同じ `GET /movies` が HTML 文書を返すようになりました。URL とルートの対応は同じでも、ルートの処理を変えることでレスポンス本文の内容が変わります。
 
 ## 3.10 この章のコードを確認する

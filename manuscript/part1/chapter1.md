@@ -176,6 +176,11 @@ Chrome のバージョンや表示言語によって、`Doc`、`document`、タ�
 
 最初からすべてのヘッダーを理解する必要はありません。まずは `Request URL`、`Request Method`、`Status Code` の三つを見つけてください。その三つだけでも、「どこへ」「どの方法で」リクエストを送り、「どの結果が」返ったかを読み取れます。
 
+<figure class="book-figure">
+  <img src="../assets/captures/capture-1.jpg" alt="Chrome DevTools の Network パネルで movies の行を選び、Request URL、Request Method、Status Code の位置を番号で示した確認例">
+  <figcaption>図 1-2 Network パネルで最初に確認する三項目</figcaption>
+</figure>
+
 見つけた値を使い、「ブラウザは〇〇へ GET リクエストを送り、〇〇というステータスコードのレスポンスを受け取った」と一文で説明してみてください。
 
 `Response` に表示された HTML と、ブラウザに表示されている画面も比べてみます。HTML のタグがそのまま画面に並んでいるのではなく、ブラウザが見出しや段落として解釈していることを確認できます。
