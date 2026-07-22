@@ -2,13 +2,13 @@
 
 第1章では、ブラウザがリクエストを送り、Web アプリケーションがレスポンスを返す往復を見ました。この章では、その往復のサーバー側を初めて作ります。
 
-最初に返す内容は、「映画図鑑」という短い文字列だけです。小さいレスポンスから始めると、URL、Sinatra のルート、ブラウザに返る内容の対応を一つずつ追えます。
-
-**この章のゴール:** Sinatra アプリを起動し、URL とルーティングの対応を追いながら最小のレスポンスを返せる。
+最初に返す内容は、「映画図鑑」という短い文字列だけです。Sinatra アプリを実際に起動し、URL、Sinatra のルート、ブラウザに返る内容の対応を一つずつ追います。
 
 ## 2.1 Sinatra が結ぶリクエストと Ruby
 
-Sinatra は、Ruby で Web アプリケーションを作るためのフレームワークです。第1章で説明したリクエストのうち、**HTTP メソッドとパスの組み合わせ**を Ruby の処理へ対応付けられます。
+Sinatra は、Ruby で Web アプリケーションを作るためのフレームワークです。2007 年に、ソフトウェア開発者の Blake Mizerany（ブレイク・マイゼラニー）が作り始めました。その後も多くの開発者がコードやドキュメントの改善を重ね、現在まで使われる OSS として育てています。
+
+Sinatra を使うと、第1章で説明したリクエストのうち、**HTTP メソッドとパスの組み合わせ**を Ruby の処理へ対応付けられます。
 
 たとえば、次のコードは `GET /movies` というリクエストに対応します。
 
@@ -129,21 +129,13 @@ bundle install
 
 初回は Gem のダウンロードに時間がかかることがあります。最後に `Bundle complete!` と表示され、エラーなくコマンドが終了すれば準備できています。このとき、選ばれた Gem の組み合わせが `Gemfile.lock` に書き出されます。すでにインストール済みの場合も、Bundler は現在の状態を確認します。
 
-この章から、Ruby のプログラムは次の形で実行します。
-
-```sh
-bundle exec ruby app.rb
-```
-
-`bundle exec` は、`Gemfile` と `Gemfile.lock` で管理している Gem を使える状態にして、後ろのコマンドを実行します。単に `ruby app.rb` とした場合、環境に別のバージョンの Sinatra が入っていれば、意図しない組み合わせが選ばれる可能性があります。本書では起動方法を一つにそろえるため、常に `bundle exec` を付けます。
-
 ## 2.5 最初のルートを `app.rb` に書く
 
-`sinatra-movies` ディレクトリに `app.rb` を作り、次のコードを書きます。
+`app.rb` は、映画図鑑のサーバー側の処理を書く中心的な Ruby ファイルです。`app` は application を短くした名前です。Sinatra がこのファイル名を必須としているわけではありませんが、本書では役割が分かりやすいように `app.rb` へ統一します。
+
+このファイルに Sinatra の読み込みやルートを書き、後で `ruby app.rb` と実行します。まず、`sinatra-movies` ディレクトリに `app.rb` を作り、次のコードを書きます。
 
 ```ruby
-# frozen_string_literal: true
-
 require "sinatra"
 
 get "/" do
@@ -177,6 +169,8 @@ Host: localhost:4567
 ```sh
 bundle exec ruby app.rb
 ```
+
+`ruby app.rb` は、今作った `app.rb` を Ruby で実行する指定です。先頭の `bundle exec` は、`Gemfile` と `Gemfile.lock` で管理している Gem を使える状態にして、後ろのコマンドを実行します。単に `ruby app.rb` とした場合、環境に別のバージョンの Sinatra が入っていれば、意図しない組み合わせが選ばれる可能性があります。本書では起動方法を一つにそろえるため、常に `bundle exec` を付けます。
 
 起動に成功すると、Sinatra 4.2.1、Puma 8.0.2、Ruby 4.0.6 といった情報に続いて、次のような待ち受け先が表示されます。細かな出力は環境によって異なります。
 
@@ -295,8 +289,6 @@ Location: http://localhost:4567/movies
 この章の終了時点で、`app.rb` は次の内容になります。
 
 ```ruby
-# frozen_string_literal: true
-
 require "sinatra"
 
 get "/" do
@@ -323,7 +315,9 @@ Rack は、Ruby の Web サーバーと Web アプリケーションが同じ方
 
 ## 参考資料
 
+- [Sinatra: About](https://sinatrarb.com/about.html)
 - [Sinatra: README - Getting Started, Routes, Return Values, Browser Redirect, Modular vs. Classic Style, Rack Middleware](https://sinatrarb.com/intro.html)
+- [sinatra 0.1.5 - RubyGems.org](https://rubygems.org/gems/sinatra/versions/0.1.5)
 - [Bundler: Gemfile](https://bundler.io/guides/gemfile.html)
 - [Bundler: bundle exec](https://bundler.io/man/bundle-exec.1.html)
 - [Rack: a Ruby Webserver Interface](https://rack.github.io/)

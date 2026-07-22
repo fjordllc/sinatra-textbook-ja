@@ -2,7 +2,7 @@
 
 第6章では、映画の一覧と詳細を分け、ID で 1 件の映画を表示できるようにしました。
 
-この章では、既存の映画を編集・削除できるようにします。読了後には、CRUD の更新と削除を実装し、HTML フォームの制約と method override の関係を説明できるようになります。
+この章では、既存の映画を編集・削除できるようにします。その過程で、HTML フォームが直接送れる HTTP メソッドの制約と、POST を PATCH や DELETE として扱う仕組みを確認します。
 
 ## CRUD はデータへの基本操作
 
@@ -215,8 +215,6 @@ Network タブだけを見て「PATCH や DELETE が送られていない」と�
 この章の最後の `app.rb` は次の形です。
 
 ```ruby
-# frozen_string_literal: true
-
 require "json"
 require "rack/utils"
 require "securerandom"
