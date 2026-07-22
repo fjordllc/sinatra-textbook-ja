@@ -20,6 +20,6 @@
 <line x1="415" y1="578" x2="415" y2="507" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
 <line x1="415" y1="393" x2="415" y2="340" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
 <line x1="415" y1="213" x2="415" y2="140" stroke="#3a6ea5" stroke-width="2.5" marker-end="url(#arrow)"/>
-<text x="210" y="184" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a6ea5">リクエスト ↓</text>
-<text x="440" y="184" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a6ea5">↑ レスポンス</text>
+<text x="150" y="184" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a6ea5">リクエスト ↓</text>
+<text x="500" y="184" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a6ea5">↑ レスポンス</text>
 </svg>

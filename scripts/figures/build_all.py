@@ -82,13 +82,13 @@ def fig_1_1():
         rect(40, 60, 220, 110, NEUT, LINE, 8),
         txt(150, 108, "ブラウザ", 22, INK, "middle", "bold"),
         txt(150, 138, "レスポンスを表示", 14, SUB, "middle"),
-        rect(500, 60, 220, 110, BLUE, ACC, 8),
-        txt(610, 108, "Web アプリケーション", 20, ACC, "middle", "bold"),
-        txt(610, 138, "リクエストを処理", 14, SUB, "middle"),
-        line(270, 85, 488, 85, ACC, 2.5, "arrow"),
+        rect(490, 60, 230, 110, BLUE, ACC, 8),
+        txt(605, 108, "Web アプリケーション", 19, ACC, "middle", "bold"),
+        txt(605, 138, "リクエストを処理", 14, SUB, "middle"),
+        line(270, 85, 478, 85, ACC, 2.5, "arrow"),
         txt(380, 68, "リクエスト", 16, ACC, "middle", "bold"),
-        line(490, 148, 272, 148, ACC, 2.5, "arrow"),
-        txt(380, 188, "レスポンス", 16, ACC, "middle", "bold"),
+        line(480, 148, 272, 148, ACC, 2.5, "arrow"),
+        txt(380, 178, "レスポンス", 16, ACC, "middle", "bold"),
     ]
     save("fig-1-1.svg", elements)
 
@@ -122,8 +122,9 @@ def fig_2_1():
         line(415, 578, 415, 507, ACC, 2.5, "arrow"),
         line(415, 393, 415, 340, ACC, 2.5, "arrow"),
         line(415, 213, 415, 140, ACC, 2.5, "arrow"),
-        txt(210, 184, "リクエスト ↓", 17, ACC, "middle", "bold"),
-        txt(440, 184, "↑ レスポンス", 17, ACC, "middle", "bold"),
+        # ラベルは矢印の外側に置き、文字と線が重ならないようにする。
+        txt(150, 184, "リクエスト ↓", 17, ACC, "middle", "bold"),
+        txt(500, 184, "↑ レスポンス", 17, ACC, "middle", "bold"),
     ]
     save("fig-2-1.svg", elements)
 
