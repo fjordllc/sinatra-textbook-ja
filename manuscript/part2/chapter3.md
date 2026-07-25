@@ -368,6 +368,8 @@ h1 {
 
 `views/index.erb` の `table` にもクラスを付け、外側を `div` で囲みます。
 
+次の例では、すでに作った表の行を省略し、今回追加する `div` と `class` だけを示します。`...` は実際のファイルには書きません。
+
 ```erb
 <div class="table-scroll">
   <table class="movie-table">

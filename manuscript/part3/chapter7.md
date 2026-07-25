@@ -107,6 +107,7 @@ patch "/movies/:id" do
 
   if @movie["title"].strip.empty?
     @errors << "タイトルを入力してください"
+    status 422
     return erb :edit
   end
 
@@ -120,6 +121,8 @@ end
 `movie_params` には、フォームから届いたタイトル、監督、公開年、ジャンル、紹介文だけが入ります。ID は含まれません。
 
 `movie.merge(movie_params)` は、元の映画データにフォームから届いた値を重ねた新しいハッシュを作ります。元の映画データに入っていた ID は残ります。タイトルが空なら保存せず、編集フォームを再表示します。
+
+`status 422` は、更新できなかったことを HTTP のステータスコードでも伝えます。`erb :edit` が返す編集画面の HTML には、エラーメッセージと入力済みの値が含まれます。画面を再表示できたことと、更新に成功したことは別です。
 
 入力に問題がなければ、`movie.merge!(@movie)` で配列の中にある映画ハッシュを書き換えます。`merge` は新しいハッシュを作り、`merge!` は元のハッシュを書き換えます。その後、配列全体を JSON ファイルへ保存します。
 
@@ -302,6 +305,7 @@ post "/movies" do
 
   if @movie["title"].strip.empty?
     @errors << "タイトルを入力してください"
+    status 422
     return erb :new
   end
 
@@ -323,6 +327,7 @@ patch "/movies/:id" do
 
   if @movie["title"].strip.empty?
     @errors << "タイトルを入力してください"
+    status 422
     return erb :edit
   end
 
@@ -470,7 +475,7 @@ end
 
 1. 詳細画面から編集画面へ移動できることを確認する。
 2. タイトルを変更して更新し、詳細画面に変更後の値が表示されることを確認する。
-3. タイトルを空にして更新し、保存されずに編集フォームが再表示されることを確認する。
+3. タイトルを空にして更新し、保存されずに編集フォームが再表示されることを確認する。Network タブでは、レスポンスが `422 Unprocessable Content` であることも確認する。
 4. Network タブで、更新時に POST と `_method=patch` が見えることを確認する。
 5. Sinatra のログで、更新が PATCH として処理されていることを確認する。
 6. 詳細画面から削除し、一覧画面へ戻ることを確認する。

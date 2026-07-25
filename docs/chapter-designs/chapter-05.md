@@ -9,7 +9,7 @@
 - `JSON.parse` と `JSON.pretty_generate` を使って、JSON ファイルと Ruby の配列を行き来できる。
 - `SecureRandom.uuid` で、利用者入力とは別の一意な ID を作れる。
 - フォームから届いた値をハッシュにまとめ、配列へ追加して保存できる。
-- タイトルが空のとき、保存もリダイレクトもせずに登録フォームを再表示できる。
+- タイトルが空のとき、保存もリダイレクトもせず、`422 Unprocessable Content` で登録フォームを再表示できる。
 - 入力エラー時に、エラーメッセージと入力済みの値を保持できる。
 - 保存後の `redirect "/movies"` を、別 URL へ移動するレスポンスとして Network タブで観察できる。
 - 保存した利用者入力を表示するとき、`h` ヘルパーで HTML エスケープする必要があると説明できる。
@@ -29,7 +29,7 @@
 - `helpers` ブロックで `h` ヘルパーを定義する。
 - `GET /movies` は `data/movies.json` から読み込んだ映画を表示する。
 - `GET /movies/new` は空の `@movie` と `@errors` を用意する。
-- `POST /movies` はタイトルを検証し、成功時だけ UUID 付きの映画を保存して `/movies` へリダイレクトする。
+- `POST /movies` はタイトルを検証し、入力エラー時は 422 でフォームを再表示する。成功時だけ UUID 付きの映画を保存して `/movies` へリダイレクトする。
 - `views/index.erb` と `views/new.erb` で利用者入力を `h` ヘルパー経由で表示する。
 - `public/stylesheets/application.css` にエラーメッセージの最小限の見た目を追加する。
 

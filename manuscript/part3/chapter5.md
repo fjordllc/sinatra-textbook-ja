@@ -173,6 +173,7 @@ post "/movies" do
 
   if @movie["title"].strip.empty?
     @errors << "タイトルを入力してください"
+    status 422
     return erb :new
   end
 
@@ -188,6 +189,10 @@ end
 `strip.empty?` は、空文字だけでなく、空白だけの入力も空として扱うために使っています。
 
 タイトルが空のときは、保存しません。リダイレクトもしません。`@errors` にメッセージを入れ、登録フォームをもう一度表示します。
+
+フォームから送られたリクエストの形式は正しいため、Sinatra は内容を読み取れます。しかし、保存に必要なタイトルがありません。このように、リクエストを読み取れても内容を処理できない場合は、`422 Unprocessable Content` を返します。
+
+`status 422` は、続けて返すレスポンスのステータスコードを設定します。`erb :new` は、エラーメッセージと入力済みの値を含む登録画面の HTML を作ります。エラー時のレスポンスは、登録画面の HTML と、登録できなかったことを示す 422 の両方を持ちます。
 
 タイトルが入っているときは、`merge` で UUID の入ったハッシュとフォームの値を一つにまとめ、`movie` へ代入します。`movies << movie` の `<<` は、右側の `movie` を左側の配列 `movies` の末尾へ追加する演算子です。その配列を JSON ファイルへ保存し、最後に `redirect "/movies"` で一覧画面へ移動します。
 
@@ -286,7 +291,7 @@ GET /movies
 
 `POST /movies` のレスポンスは、HTML そのものではなく、別の URL へ移動する指示です。この環境では `303 See Other` として確認できます。その指示を受けて、ブラウザが `GET /movies` を送ります。
 
-次に、タイトルを空にして送信してください。この場合は保存されず、登録フォームが表示されます。Network タブでは、リダイレクト後の `GET /movies` は発生しません。`POST /movies` のレスポンスとして、エラーメッセージ付きのフォームが返ります。
+次に、タイトルを空にして送信してください。この場合は保存されず、登録フォームが表示されます。Network タブでは、リダイレクト後の `GET /movies` は発生しません。`POST /movies` のレスポンスとして、エラーメッセージ付きのフォームと `422 Unprocessable Content` が返ります。
 
 `data/movies.json` も確認してください。登録に成功した映画だけが、UUID 付きで追加されています。タイトル空欄の送信では、JSON ファイルは変わりません。
 
@@ -347,6 +352,7 @@ post "/movies" do
 
   if @movie["title"].strip.empty?
     @errors << "タイトルを入力してください"
+    status 422
     return erb :new
   end
 
@@ -479,7 +485,7 @@ end
 1. `/movies/new` からタイトルを入れて映画を登録する。
 2. Network タブで `POST /movies` の後に `GET /movies` が発生していることを確認する。
 3. 送信前後で `data/movies.json` を開き、UUID 付きの映画が追加されたことを確認する。
-4. タイトルを空にして送信し、エラーメッセージが表示され、入力済みの監督名や紹介文が残ることを確認する。
+4. タイトルを空にして送信し、エラーメッセージが表示され、入力済みの監督名や紹介文が残ることを確認する。Network タブでは、`POST /movies` のステータスが `422 Unprocessable Content` であることも確認する。
 5. タイトル空欄の送信では、`data/movies.json` が変わらないことを確認する。
 
 ## 考えてみよう
@@ -498,3 +504,4 @@ end
 - [Rack Utils](https://rack.github.io/rack/main/Rack/Utils.html)では、HTML エスケープなど、Sinatra の背後で利用できる Web 向け処理を確認できます。
 - [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、`params`、`redirect`、ルーティングがどのように連携するかを詳しく学べます。
 - [MDN HTTP リダイレクト](https://developer.mozilla.org/ja/docs/Web/HTTP/Redirections)では、リダイレクト用ステータスコードの違いと、ブラウザが次の URL へ移動する仕組みを学べます。
+- [RFC 9110 の 422 Unprocessable Content](https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.21)では、内容を理解できても処理できなかったリクエストに 422 を返す意味を確認できます。
