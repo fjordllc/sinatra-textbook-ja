@@ -36,7 +36,7 @@ def load_movies
 end
 
 def save_movies(movies)
-  File.write(MOVIES_FILE, "#{JSON.pretty_generate(movies)}\n")
+  File.write(MOVIES_FILE, JSON.generate(movies))
 end
 ```
 

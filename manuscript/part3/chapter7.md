@@ -46,7 +46,6 @@ get "/movies/:id/edit" do
   @movie = find_movie(params["id"])
   halt 404, "映画が見つかりません" if @movie.nil?
 
-  @errors = []
   erb :edit
 end
 ```
@@ -102,16 +101,7 @@ patch "/movies/:id" do
   movie = find_movie_from(movies, params["id"])
   halt 404, "映画が見つかりません" if movie.nil?
 
-  @movie = movie.merge(movie_params)
-  @errors = []
-
-  if @movie["title"].strip.empty?
-    @errors << "タイトルを入力してください"
-    status 422
-    return erb :edit
-  end
-
-  movie.merge!(@movie)
+  movie.merge!(movie_params)
   save_movies(movies)
 
   redirect "/movies/#{movie["id"]}"
@@ -120,20 +110,9 @@ end
 
 `movie_params` には、フォームから届いたタイトル、監督、公開年、ジャンル、紹介文だけが入ります。ID は含まれません。
 
-`movie.merge(movie_params)` は、元の映画データにフォームから届いた値を重ねた新しいハッシュを作ります。元の映画データに入っていた ID は残ります。タイトルが空なら保存せず、編集フォームを再表示します。
+`movie.merge!(movie_params)` は、配列の中にある映画のハッシュを、フォームから届いた値で書き換えます。`movie_params` に ID は含まれないため、元の ID は変わりません。その後、配列全体を JSON ファイルへ保存します。
 
-例えば、保存済みのタイトルが「月面喫茶」で、フォームから「月面カフェ」が届いたとします。`merge` で作った `@movie` のタイトルは「月面カフェ」になりますが、この時点では JSON ファイルの内容はまだ変わりません。入力チェックに通った後で `merge!` を実行すると、保存する配列の中のタイトルも「月面カフェ」に変わります。
-
-`status 422` は、更新できなかったことを HTTP のステータスコードでも伝えます。`erb :edit` が返す編集画面の HTML には、エラーメッセージと入力済みの値が含まれます。画面を再表示できたことと、更新に成功したことは別です。
-
-入力に問題がなければ、`movie.merge!(@movie)` で配列の中にある映画ハッシュを書き換えます。`merge` は新しいハッシュを作り、`merge!` は元のハッシュを書き換えます。その後、配列全体を JSON ファイルへ保存します。
-
-更新の二つの結果を比べると、次のようになります。
-
-| タイトル | JSON の変更 | 次に表示する画面 | レスポンス |
-| --- | --- | --- | --- |
-| 入力されている | 更新する | 映画詳細 | `303 See Other` |
-| 空である | 更新しない | エラー付きの編集画面 | `422 Unprocessable Content` |
+例えば、保存済みのタイトルが「月面喫茶」で、フォームから「月面カフェ」が届いた場合、`merge!` で配列内のタイトルを変更し、`save_movies` でその変更をファイルへ書き戻します。
 
 更新に成功したら、映画詳細画面へリダイレクトします。
 
@@ -158,8 +137,6 @@ end
 
 1. アプリを再起動して、映画詳細画面から「編集する」を選ぶ。
 2. タイトルを変更して更新し、詳細画面に変更後のタイトルが表示されることを確認する。
-3. タイトルを空にして更新し、編集画面にエラーが表示されることを確認する。
-4. タイトルを空にしたときは、Network タブで `422 Unprocessable Content` を確認する。
 
 ここまで動けば、編集の処理は完成です。次は、同じ method override を使って削除を追加します。
 
@@ -266,7 +243,7 @@ def load_movies
 end
 
 def save_movies(movies)
-  File.write(MOVIES_FILE, "#{JSON.pretty_generate(movies)}\n")
+  File.write(MOVIES_FILE, JSON.generate(movies))
 end
 
 def find_movie(id)
@@ -297,8 +274,6 @@ get "/movies" do
 end
 
 get "/movies/new" do
-  @movie = {}
-  @errors = []
   erb :new
 end
 
@@ -306,7 +281,6 @@ get "/movies/:id/edit" do
   @movie = find_movie(params["id"])
   halt 404, "映画が見つかりません" if @movie.nil?
 
-  @errors = []
   erb :edit
 end
 
@@ -318,17 +292,8 @@ get "/movies/:id" do
 end
 
 post "/movies" do
-  @movie = movie_params
-  @errors = []
-
-  if @movie["title"].strip.empty?
-    @errors << "タイトルを入力してください"
-    status 422
-    return erb :new
-  end
-
   movies = load_movies
-  movie = { "id" => SecureRandom.uuid }.merge(@movie)
+  movie = { "id" => SecureRandom.uuid }.merge(movie_params)
   movies << movie
   save_movies(movies)
 
@@ -340,16 +305,7 @@ patch "/movies/:id" do
   movie = find_movie_from(movies, params["id"])
   halt 404, "映画が見つかりません" if movie.nil?
 
-  @movie = movie.merge(movie_params)
-  @errors = []
-
-  if @movie["title"].strip.empty?
-    @errors << "タイトルを入力してください"
-    status 422
-    return erb :edit
-  end
-
-  movie.merge!(@movie)
+  movie.merge!(movie_params)
   save_movies(movies)
 
   redirect "/movies/#{movie["id"]}"
@@ -407,17 +363,6 @@ end
 <h1>映画編集</h1>
 
 <p>登録済みの映画情報を変更します。</p>
-
-<% unless @errors.empty? %>
-  <div class="error-messages" role="alert">
-    <p>入力内容を確認してください。</p>
-    <ul>
-      <% @errors.each do |error| %>
-        <li><%= h(error) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 
 <form class="movie-form" action="/movies/<%= h(@movie["id"]) %>" method="post">
   <input type="hidden" name="_method" value="patch">
@@ -493,13 +438,12 @@ end
 
 1. 詳細画面から編集画面へ移動できることを確認する。
 2. タイトルを変更して更新し、詳細画面に変更後の値が表示されることを確認する。
-3. タイトルを空にして更新し、保存されずに編集フォームが再表示されることを確認する。Network タブでは、レスポンスが `422 Unprocessable Content` であることも確認する。
-4. Network タブで、更新時に POST と `_method=patch` が見えることを確認する。
-5. Sinatra のログで、更新が PATCH として処理されていることを確認する。
-6. 詳細画面から削除し、一覧画面へ戻ることを確認する。
-7. Network タブで、削除時に POST と `_method=delete` が見えることを確認する。
-8. Sinatra のログで、削除が DELETE として処理されていることを確認する。
-9. 削除後に、削除した映画の詳細 URL へアクセスすると 404 になることを確認する。
+3. Network タブで、更新時に POST と `_method=patch` が見えることを確認する。
+4. Sinatra のログで、更新が PATCH として処理されていることを確認する。
+5. 詳細画面から削除し、一覧画面へ戻ることを確認する。
+6. Network タブで、削除時に POST と `_method=delete` が見えることを確認する。
+7. Sinatra のログで、削除が DELETE として処理されていることを確認する。
+8. 削除後に、削除した映画の詳細 URL へアクセスすると 404 になることを確認する。
 
 ## 考えてみよう
 

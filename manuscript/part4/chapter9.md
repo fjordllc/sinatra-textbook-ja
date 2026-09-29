@@ -191,7 +191,7 @@ XSS は、`<script>` を本文に入れる場合だけの問題ではありま�
 <dd class="movie-description"><%= h(@movie["description"]) %></dd>
 ```
 
-登録フォームや編集フォームで入力済みの値を戻すときも、`h` を使います。
+編集フォームで保存済みの値を表示するときも、`h` を使います。
 
 ```erb
 <input type="text" id="title" name="title" value="<%= h(@movie["title"]) %>">

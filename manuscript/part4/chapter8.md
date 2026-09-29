@@ -92,17 +92,8 @@ GET /movies
 
 ```ruby
 post "/movies" do
-  @movie = movie_params
-  @errors = []
-
-  if @movie["title"].strip.empty?
-    @errors << "タイトルを入力してください"
-    status 422
-    return erb :new
-  end
-
   movies = load_movies
-  movie = { "id" => SecureRandom.uuid }.merge(@movie)
+  movie = { "id" => SecureRandom.uuid }.merge(movie_params)
   movies << movie
   save_movies(movies)
 

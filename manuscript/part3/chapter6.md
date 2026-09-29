@@ -78,7 +78,7 @@ end
 
 `@movie` に 1 件の映画を入れ、`views/show.erb` を表示します。
 
-`halt 404, "映画が見つかりません"` の行は、`@movie` が `nil` の場合だけ実行されます。ここでは専用の 404 ページはまだ作りません。存在しない ID に対して 404 のレスポンスを返すところまでを扱います。404 ページは第10章で作ります。
+`halt 404, "映画が見つかりません"` の行は、`@movie` が `nil` の場合だけ実行されます。本書の 404 対応は、この 1 行で処理を止める形にとどめます。専用のエラーページは作らず、第10章ではステータスコードの意味を確認します。
 
 `views/show.erb` を作ります。
 
@@ -260,7 +260,7 @@ def load_movies
 end
 
 def save_movies(movies)
-  File.write(MOVIES_FILE, "#{JSON.pretty_generate(movies)}\n")
+  File.write(MOVIES_FILE, JSON.generate(movies))
 end
 
 def find_movie(id)
@@ -287,8 +287,6 @@ get "/movies" do
 end
 
 get "/movies/new" do
-  @movie = {}
-  @errors = []
   erb :new
 end
 
@@ -300,17 +298,8 @@ get "/movies/:id" do
 end
 
 post "/movies" do
-  @movie = movie_params
-  @errors = []
-
-  if @movie["title"].strip.empty?
-    @errors << "タイトルを入力してください"
-    status 422
-    return erb :new
-  end
-
   movies = load_movies
-  movie = { "id" => SecureRandom.uuid }.merge(@movie)
+  movie = { "id" => SecureRandom.uuid }.merge(movie_params)
   movies << movie
   save_movies(movies)
 

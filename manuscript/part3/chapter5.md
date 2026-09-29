@@ -148,37 +148,24 @@ end
 
 ```ruby
 def save_movies(movies)
-  File.write(MOVIES_FILE, "#{JSON.pretty_generate(movies)}\n")
+  File.write(MOVIES_FILE, JSON.generate(movies))
 end
 ```
 
-`JSON.pretty_generate` は、Ruby の配列やハッシュを読みやすい JSON 文字列へ変換します。`File.write` は、その文字列をファイルへ書き込みます。
+`JSON.generate` は、Ruby の配列やハッシュを JSON 文字列へ変換します。`File.write` は、その文字列をファイルへ書き込みます。保存用のデータなので、字下げや整形用の改行は加えません。
 
-`JSON.parse` は JSON 文字列を Ruby の配列やハッシュへ変換します。`JSON.pretty_generate` は Ruby の配列やハッシュを JSON 文字列へ変換します。読み込みと書き込みで向きが逆になります。
-
-`JSON.pretty_generate` を使うと、保存された JSON を人間が読みやすくなります。登録後に `data/movies.json` を開いて確認する教材では、1 行に詰め込まれた JSON よりも扱いやすくなります。
+`JSON.parse` は JSON 文字列を Ruby の配列やハッシュへ変換します。`JSON.generate` はその逆です。`movies` は Ruby の配列なので、`File.write(MOVIES_FILE, movies)` と書くだけでは JSON 形式で保存できません。
 
 この章の保存方法は、毎回ファイル全体を読み込み、配列を変更し、ファイル全体を書き戻す方法です。小さなローカル教材アプリとしては理解しやすい方法ですが、データが増えたり複数人が同時に使ったりする場合には限界があります。この限界は、第12章で振り返ります。
 
-## 5.7 タイトルを必須にする
-
-映画図鑑では、タイトルが空の映画を登録できないようにします。HTML の `required` 属性を使うこともできますが、ブラウザ側の機能だけに頼ってはいけません。リクエストはブラウザ以外からも送れます。サーバー側でも確認します。
+## 5.7 映画を追加して保存する
 
 `POST /movies` を次のように変更します。
 
 ```ruby
 post "/movies" do
-  @movie = movie_params
-  @errors = []
-
-  if @movie["title"].strip.empty?
-    @errors << "タイトルを入力してください"
-    status 422
-    return erb :new
-  end
-
   movies = load_movies
-  movie = { "id" => SecureRandom.uuid }.merge(@movie)
+  movie = { "id" => SecureRandom.uuid }.merge(movie_params)
   movies << movie
   save_movies(movies)
 
@@ -186,32 +173,15 @@ post "/movies" do
 end
 ```
 
-`strip.empty?` は、空文字だけでなく、空白だけの入力も空として扱うために使っています。
+`merge` で UUID の入ったハッシュとフォームの値を一つにまとめます。`movies << movie` は、その映画を配列の末尾へ追加します。配列を保存したら、`redirect "/movies"` で一覧画面へ移動します。
 
-タイトルが空のときは、保存しません。リダイレクトもしません。`@errors` にメッセージを入れ、登録フォームをもう一度表示します。
+本書では、タイトルなどの項目を入力して操作することを前提に、データが保存されるまでの流れを学びます。入力値の検証や、エラー時に入力内容を保ってフォームを再表示する処理は、Rails でバリデーションを学ぶときに扱います。このアプリでは空欄も保存されます。公開して利用者に使ってもらう際には、サーバー側での入力チェックが必要です。
 
-フォームから送られたリクエストの形式は正しいため、Sinatra は内容を読み取れます。しかし、保存に必要なタイトルがありません。このように、リクエストを読み取れても内容を処理できない場合は、`422 Unprocessable Content` を返します。
+リダイレクトは、まず「保存後に別の URL へ移動するレスポンス」として使います。再送信を防ぐ仕組みは、第8章で PRG として説明します。
 
-`status 422` は、続けて返すレスポンスのステータスコードを設定します。`erb :new` は、エラーメッセージと入力済みの値を含む登録画面の HTML を作ります。エラー時のレスポンスは、登録画面の HTML と、登録できなかったことを示す 422 の両方を持ちます。
+## 5.8 利用者の入力を安全に表示する
 
-成功時と入力エラー時を比べると、次のようになります。
-
-| タイトル | JSON への保存 | 次に表示する画面 | レスポンス |
-| --- | --- | --- | --- |
-| 入力されている | 保存する | 映画一覧 | `303 See Other` |
-| 空である | 保存しない | エラー付きの登録画面 | `422 Unprocessable Content` |
-
-タイトルが入っているときは、`merge` で UUID の入ったハッシュとフォームの値を一つにまとめ、`movie` へ代入します。`movies << movie` の `<<` は、右側の `movie` を左側の配列 `movies` の末尾へ追加する演算子です。その配列を JSON ファイルへ保存し、最後に `redirect "/movies"` で一覧画面へ移動します。
-
-同じコードにある `@errors << "タイトルを入力してください"` も、`@errors` 配列の末尾へエラーメッセージを追加しています。
-
-ここではまだ、このリダイレクトを PRG という名前では説明しません。まずは「保存後に別の URL へ移動するレスポンス」として使います。なぜ状態を変えるリクエストの後にこの形にするのか、リダイレクトが再送信をどう防ぐのかは、第8章で扱います。
-
-## 5.8 入力済みの値をフォームに戻す
-
-タイトルが空だったとき、フォームを空に戻してしまうと、読者は入力した監督名や紹介文をもう一度入力しなければなりません。エラー時には、入力済みの値をフォームに戻します。
-
-フォームへ入力値を戻す前に、利用者入力を安全に表示するための `h` ヘルパーを追加します。
+保存した映画を一覧に表示する前に、`app.rb` へ `h` ヘルパーを追加します。`require` はファイルの先頭、`helpers` は最初のルートより前へ置きます。
 
 ```ruby
 require "rack/utils"
@@ -223,55 +193,7 @@ helpers do
 end
 ```
 
-Sinatra の ERB では、`<%= %>` に書いた値が自動で HTML エスケープされるとは考えません。`h` は、HTML として特別な意味を持つ文字を、文字として表示できる形へ変換します。例えば `<` は `&lt;` のような文字参照になります。
-
-`GET /movies/new` では、空の映画データとエラー配列を用意します。
-
-```ruby
-get "/movies/new" do
-  @movie = {}
-  @errors = []
-  erb :new
-end
-```
-
-`views/new.erb` のフォームでは、`@movie` の値を `value` 属性や `textarea` の中身へ入れます。
-
-```erb
-<input type="text" id="title" name="title" value="<%= h(@movie["title"]) %>">
-```
-
-`textarea` は `value` 属性ではなく、開始タグと終了タグの間に値を書きます。
-
-```erb
-<textarea id="description" name="description" rows="5"><%= h(@movie["description"]) %></textarea>
-```
-
-`select` は、選ばれていた項目に `selected` を付けます。
-
-```erb
-<option value="ドラマ" <%= "selected" if @movie["genre"] == "ドラマ" %>>ドラマ</option>
-```
-
-エラーメッセージもフォームの上に表示します。
-
-```erb
-<% unless @errors.empty? %>
-  <div class="error-messages" role="alert">
-    <p>入力内容を確認してください。</p>
-    <ul>
-      <% @errors.each do |error| %>
-        <li><%= h(error) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-```
-
-<figure class="book-figure">
-  <img src="../assets/captures/capture-6.jpg" alt="タイトル未入力のエラーメッセージが表示され、監督、公開年、ジャンル、紹介文の入力値は保持されている登録画面">
-  <figcaption>図 5-1 入力エラーと保持された入力内容</figcaption>
-</figure>
+Sinatra の ERB では、`<%= %>` に書いた値が自動で HTML エスケープされるとは考えません。`h` は、HTML として特別な意味を持つ文字を、文字として表示できる形へ変換します。例えば `<` は `&lt;` になります。表示する値を `h` に渡す理由は、第9章で詳しく学びます。
 
 ## 5.9 保存した値を一覧に表示する
 
@@ -298,9 +220,7 @@ GET /movies
 
 `POST /movies` のレスポンスは、HTML そのものではなく、別の URL へ移動する指示です。この環境では `303 See Other` として確認できます。その指示を受けて、ブラウザが `GET /movies` を送ります。
 
-次に、タイトルを空にして送信してください。この場合は保存されず、登録フォームが表示されます。Network タブでは、リダイレクト後の `GET /movies` は発生しません。`POST /movies` のレスポンスとして、エラーメッセージ付きのフォームと `422 Unprocessable Content` が返ります。
-
-`data/movies.json` も確認してください。登録に成功した映画だけが、UUID 付きで追加されています。タイトル空欄の送信では、JSON ファイルは変わりません。
+`data/movies.json` も確認してください。送信した映画が UUID 付きで追加されています。
 
 ## 5.11 この章の完成コード
 
@@ -325,7 +245,7 @@ def load_movies
 end
 
 def save_movies(movies)
-  File.write(MOVIES_FILE, "#{JSON.pretty_generate(movies)}\n")
+  File.write(MOVIES_FILE, JSON.generate(movies))
 end
 
 def movie_params
@@ -348,23 +268,12 @@ get "/movies" do
 end
 
 get "/movies/new" do
-  @movie = {}
-  @errors = []
   erb :new
 end
 
 post "/movies" do
-  @movie = movie_params
-  @errors = []
-
-  if @movie["title"].strip.empty?
-    @errors << "タイトルを入力してください"
-    status 422
-    return erb :new
-  end
-
   movies = load_movies
-  movie = { "id" => SecureRandom.uuid }.merge(@movie)
+  movie = { "id" => SecureRandom.uuid }.merge(movie_params)
   movies << movie
   save_movies(movies)
 
@@ -405,101 +314,18 @@ end
 </div>
 ```
 
-`views/new.erb` では、エラーメッセージと入力済みの値を表示します。
-
-```erb
-<h1>映画登録</h1>
-
-<p>登録したい映画の情報を入力します。</p>
-
-<% unless @errors.empty? %>
-  <div class="error-messages" role="alert">
-    <p>入力内容を確認してください。</p>
-    <ul>
-      <% @errors.each do |error| %>
-        <li><%= h(error) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<form class="movie-form" action="/movies" method="post">
-  <div class="form-field">
-    <label for="title">タイトル</label>
-    <input type="text" id="title" name="title" value="<%= h(@movie["title"]) %>">
-  </div>
-
-  <div class="form-field">
-    <label for="director">監督</label>
-    <input type="text" id="director" name="director" value="<%= h(@movie["director"]) %>">
-  </div>
-
-  <div class="form-field">
-    <label for="year">公開年</label>
-    <input type="text" id="year" name="year" value="<%= h(@movie["year"]) %>">
-  </div>
-
-  <div class="form-field">
-    <label for="genre">ジャンル</label>
-    <select id="genre" name="genre">
-      <option value="アクション" <%= "selected" if @movie["genre"] == "アクション" %>>アクション</option>
-      <option value="コメディ" <%= "selected" if @movie["genre"] == "コメディ" %>>コメディ</option>
-      <option value="ドラマ" <%= "selected" if @movie["genre"] == "ドラマ" %>>ドラマ</option>
-      <option value="ホラー" <%= "selected" if @movie["genre"] == "ホラー" %>>ホラー</option>
-      <option value="SF" <%= "selected" if @movie["genre"] == "SF" %>>SF</option>
-      <option value="アニメーション" <%= "selected" if @movie["genre"] == "アニメーション" %>>アニメーション</option>
-      <option value="その他" <%= "selected" if @movie["genre"] == "その他" %>>その他</option>
-    </select>
-  </div>
-
-  <div class="form-field">
-    <label for="description">紹介文</label>
-    <textarea id="description" name="description" rows="5"><%= h(@movie["description"]) %></textarea>
-  </div>
-
-  <div class="form-actions">
-    <button type="submit">登録する</button>
-    <a href="/movies">一覧へ戻る</a>
-  </div>
-</form>
-```
-
-エラーメッセージのために、CSS も追加します。
-
-```css
-.error-messages {
-  max-width: 640px;
-  border: 1px solid #b3261e;
-  border-radius: 4px;
-  padding: 12px 16px;
-  color: #5f1a16;
-  background: #fff0ee;
-}
-
-.error-messages p {
-  margin: 0 0 8px;
-  font-weight: 700;
-}
-
-.error-messages ul {
-  margin: 0;
-  padding-left: 24px;
-}
-```
+登録フォームの `views/new.erb` と CSS は、第4章のものをそのまま使います。
 
 ## 確認しよう
 
 1. `/movies/new` からタイトルを入れて映画を登録する。
 2. Network タブで `POST /movies` の後に `GET /movies` が発生していることを確認する。
 3. 送信前後で `data/movies.json` を開き、UUID 付きの映画が追加されたことを確認する。
-4. タイトルを空にして送信し、エラーメッセージが表示され、入力済みの監督名や紹介文が残ることを確認する。Network タブでは、`POST /movies` のステータスが `422 Unprocessable Content` であることも確認する。
-5. タイトル空欄の送信では、`data/movies.json` が変わらないことを確認する。
 
 ## 考えてみよう
 
 - なぜタイトルや配列の位置ではなく、UUID を ID にするのでしょうか。
 - なぜ保存用 JSON を `public/` に置かないのでしょうか。
-- なぜ入力チェックを HTML の `required` 属性だけに任せないのでしょうか。
 - 保存後に直接 HTML を返すのではなく、なぜ別の URL へ移動させているのでしょうか。
 
 ## さらに学ぶ
@@ -511,4 +337,3 @@ end
 - [Rack Utils](https://rack.github.io/rack/main/Rack/Utils.html)では、HTML エスケープなど、Sinatra の背後で利用できる Web 向け処理を確認できます。
 - [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、`params`、`redirect`、ルーティングがどのように連携するかを詳しく学べます。
 - [MDN HTTP リダイレクト](https://developer.mozilla.org/ja/docs/Web/HTTP/Redirections)では、リダイレクト用ステータスコードの違いと、ブラウザが次の URL へ移動する仕組みを学べます。
-- [RFC 9110 の 422 Unprocessable Content](https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.21)では、内容を理解できても処理できなかったリクエストに 422 を返す意味を確認できます。
