@@ -129,12 +129,6 @@ description.gsub("\n", "<br>")
 .movie-description {
   white-space: pre-line;
 }
-
-@media (max-width: 600px) {
-  .movie-detail div {
-    grid-template-columns: 1fr;
-  }
-}
 ```
 
 `white-space: pre-line` を使うと、テキスト中の改行を表示に反映できます。紹介文の文字列そのものは、`h` ヘルパーで安全に表示します。
@@ -169,7 +163,15 @@ description.gsub("\n", "<br>")
   font-weight: 700;
   background: #edf3f4;
 }
+
+@media (max-width: 600px) {
+  .movie-detail div {
+    grid-template-columns: 1fr;
+  }
+}
 ```
+
+メディアクエリは、通常の `.movie-detail div` の指定より後に置きます。画面幅が 600px 以下のときは `grid-template-columns: 1fr` が適用され、項目名と値が縦に並びます。
 
 ## 6.6 一覧から詳細へ移動する
 
@@ -206,7 +208,7 @@ redirect "/movies"
 
 ```ruby
 movies = load_movies
-movie = { "id" => SecureRandom.uuid }.merge(@movie)
+movie = { "id" => SecureRandom.uuid }.merge(movie_params)
 movies << movie
 save_movies(movies)
 
