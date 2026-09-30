@@ -37,9 +37,11 @@ Sinatra では、ルートに `:id` のように書くと、その部分を `par
 
 ```ruby
 get "/movies/:id" do
-  params["id"]
+  h(params["id"])
 end
 ```
+
+URL から受け取った値なので、この短い表示例でも `h` を通します。
 
 このルートは、`/movies/new` より前に書くと意図しない動きになることがあります。`/movies/new` も `:id` の形に見えるからです。本書のコードでは、`get "/movies/new"` より後に `get "/movies/:id"` を置きます。具体的なルートを先に書き、変化する部分を含むルートを後に書く、と覚えておくと追いやすくなります。
 
@@ -190,8 +192,8 @@ description.gsub("\n", "<br>")
 `href` に映画の ID を埋め込むことで、1 件の映画を表す URL へ移動できます。ID は利用者が直接入力した値ではありませんが、HTML に出力する値として `h` を通します。
 
 <figure class="book-figure">
-  <img src="../assets/captures/capture-7.jpg" alt="movies の映画一覧画面と movies slash moon-cafe の映画詳細画面を並べ、集合と一件で表示内容が異なることを示した比較">
-  <figcaption>図 6-1 一覧を表す URL と一件を表す URL</figcaption>
+  <img src="../assets/captures/capture-7.jpg" alt="movies の映画一覧画面と UUID を含む /movies/:id の映画詳細画面を並べ、集合と一件で表示内容が異なることを示した比較">
+  <figcaption>図 6-1 一覧を表す URL と一件を表す URL（説明図。一覧は2件だけを抜粋）</figcaption>
 </figure>
 
 ## 6.7 登録後は詳細画面へ移動する
@@ -217,7 +219,7 @@ redirect "/movies/#{movie["id"]}"
 
 新しく作った映画の ID を使って、`/movies/:id` へリダイレクトしています。
 
-Network タブでは、次の流れを確認できます。
+Network パネルでは、次の流れを確認できます。
 
 ```text
 POST /movies
@@ -235,7 +237,7 @@ GET /movies/:id
 http://localhost:4567/movies/not-found
 ```
 
-映画が見つからないため、レスポンスのステータスコードは 404 になります。Network タブで、`GET /movies/not-found` のステータスコードを確認してください。
+映画が見つからないため、レスポンスのステータスコードは 404 になります。Network パネルで、`GET /movies/not-found` のステータスコードを確認してください。
 
 ここで大事なのは、画面に表示される文字列だけではありません。HTTP レスポンスとして 404 が返っていることです。
 
@@ -377,7 +379,7 @@ end
 
 1. `/movies` の一覧から詳細リンクをクリックし、`/movies/:id` に移動することを確認する。
 2. 詳細画面に、タイトル、監督、公開年、ジャンル、紹介文が表示されることを確認する。
-3. `/movies/not-found` にアクセスし、Network タブで 404 を確認する。
+3. `/movies/not-found` にアクセスし、Network パネルで 404 を確認する。
 4. `/movies/new` から映画を登録し、登録後に作成した映画の詳細画面へ移動することを確認する。
 
 ## 考えてみよう
@@ -391,6 +393,8 @@ end
 ## さらに学ぶ
 
 一覧と詳細を作った後は、URL が指す対象と、ルートが値を受け取る仕組みを深めると、別の題材にも応用できます。
+
+## 参考資料
 
 - [MDN GET](https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/GET)では、GET が情報を取得するためのメソッドであり、安全性やキャッシュとどのように関係するかを学べます。
 - [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、`/movies/:id` のようなルートパラメーターの受け取り方と、条件に応じて処理を止める方法を学べます。

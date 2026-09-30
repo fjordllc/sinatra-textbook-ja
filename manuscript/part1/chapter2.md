@@ -137,11 +137,14 @@ bundle -v
 gem install bundler -v 4.0.16
 ```
 
-インストール後、`sinatra-movies` ディレクトリでもう一度 `bundle -v` を実行し、出力に `4.0.16` が含まれることを確認します。続いて、必要な Gem をインストールします。
+インストールしただけでは、別のバージョンが選ばれる場合があります。`sinatra-movies` ディレクトリで、使用するバージョンを明示して確認し、必要な Gem をインストールします。
 
 ```sh
-bundle install
+bundle _4.0.16_ -v
+bundle _4.0.16_ install
 ```
+
+最初のコマンドで `4.0.16` が表示されることを確認してください。初回インストール後は、`Gemfile.lock` に記録された Bundler を使うため、以降は `bundle install` と書けます。
 
 初回は Gem のダウンロードに時間がかかることがあります。最後に `Bundle complete!` と表示され、エラーなくコマンドが終了すれば準備できています。このとき、選ばれた Gem の組み合わせが `Gemfile.lock` に書き出されます。すでにインストール済みの場合も、Bundler は現在の状態を確認します。
 
@@ -149,7 +152,7 @@ bundle install
 
 `app.rb` は、映画図鑑のサーバー側の処理を書く中心的な Ruby ファイルです。`app` は application を短くした名前です。Sinatra がこのファイル名を必須としているわけではありませんが、本書では役割が分かりやすいように `app.rb` へ統一します。
 
-このファイルに Sinatra の読み込みやルートを書き、後で `ruby app.rb` と実行します。まず、`sinatra-movies` ディレクトリに `app.rb` を作り、次のコードを書きます。
+このファイルに Sinatra の読み込みやルートを書き、後で `bundle exec ruby app.rb` と実行します。まず、`sinatra-movies` ディレクトリに `app.rb` を作り、次のコードを書きます。
 
 ```ruby
 require "sinatra"
@@ -212,7 +215,7 @@ http://localhost:4567/
 
 <figure>
   <img src="../assets/fig-2-1.svg" alt="ブラウザのリクエストを Puma が受け、Rack の共通インターフェースで Sinatra へ渡し、Sinatra のレスポンスを逆向きに返す流れ。Rack は独立した実行主体ではなく、Puma と Sinatra の間の境界として示されている">
-  <figcaption>図 2-1 Puma、Rack、Sinatra の受け渡し</figcaption>
+  <figcaption>図 2-1 Puma、Rack、Sinatra の受け渡し（説明図）</figcaption>
 </figure>
 
 図の下向きの矢印は、ブラウザから Sinatra へ届くリクエストです。上向きの矢印は、Sinatra からブラウザへ戻るレスポンスです。
@@ -291,7 +294,7 @@ Location: http://localhost:4567/movies
 
 <figure class="book-figure">
   <img src="../assets/captures/capture-2.jpg" alt="Network パネルに最初の GET の 302 と、それに続く movies への GET の 200 が順に並び、Location が movies を示す確認例">
-  <figcaption>図 2-2 リダイレクトで発生する二つの GET</figcaption>
+  <figcaption>図 2-2 リダイレクトで発生する二つの GET（説明図）</figcaption>
 </figure>
 
 起動したターミナルのログにも、次のような二行が表示されます。

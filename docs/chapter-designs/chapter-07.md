@@ -10,7 +10,7 @@
 - `GET /movies/:id/edit` と `PATCH /movies/:id` の役割を分けて説明できる。
 - HTML フォームでは `_method` を使って PATCH と DELETE を表す必要があると説明できる。
 - 既存の映画を ID で探し、入力値で更新して JSON へ保存できる。
-- 更新時にもタイトル必須チェックを行い、入力値を保持して `422 Unprocessable Content` で編集フォームを再表示できる。
+- 編集フォームに保存済みの5項目を表示し、更新時に元のIDを保てる。
 - 詳細画面から DELETE を送り、映画を削除して一覧へ戻れる。
 
 ## 必要な前提知識
@@ -30,18 +30,19 @@
 - 詳細画面に「編集する」リンクと削除フォームを追加する。
 - 更新成功後は詳細画面へ、削除成功後は一覧画面へリダイレクトする。
 
-## Network タブなどで観察する対象
+## Network パネルなどで観察する対象
 
 - 編集画面表示の `GET /movies/:id/edit`。
-- 更新フォーム送信時の Network タブ上の `POST` と Form Data の `_method=patch`。
+- 更新フォーム送信時の Network パネル上の `POST` と Form Data の `_method=patch`。
 - Sinatra のログで `PATCH /movies/:id` として処理されていること。
-- 削除フォーム送信時の Network タブ上の `POST` と Form Data の `_method=delete`。
+- 削除フォーム送信時の Network パネル上の `POST` と Form Data の `_method=delete`。
 - Sinatra のログで `DELETE /movies/:id` として処理されていること。
 - 更新成功後の 303 と `GET /movies/:id`。
 - 削除成功後の 303 と `GET /movies`。
 
 ## この章では扱わないこと
 
+- 入力チェックと入力エラー時のフォーム再表示。
 - JavaScript による削除確認。
 - 削除確認画面。
 - 認証、認可。

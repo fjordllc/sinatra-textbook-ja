@@ -69,8 +69,10 @@ POST /movies HTTP/1.1
 Host: localhost:4567
 Content-Type: application/x-www-form-urlencoded
 
-title=月面喫茶
+title=%E6%9C%88%E9%9D%A2%E5%96%AB%E8%8C%B6
 ```
+
+日本語などの文字は、送信時にはこのように符号化されます。Network パネルの Form Data では、読みやすい日本語に戻した値を確認できます。
 
 実際のリクエストには、ほかにもヘッダーが含まれます。ここでは、フォームの `action`、`method`、入力欄の値がリクエストに反映されることに注目してください。
 
@@ -163,7 +165,7 @@ params["title"]
 
 <figure class="book-figure">
   <img src="../assets/captures/capture-4.jpg" alt="タイトル、監督、公開年、ジャンル、紹介文の入力欄と登録ボタンが並ぶ映画登録画面">
-  <figcaption>図 4-1 映画の登録フォーム</figcaption>
+  <figcaption>図 4-1 映画の登録フォーム（説明図）</figcaption>
 </figure>
 
 ## 4.5 `POST /movies` で送信値を確認する
@@ -205,7 +207,7 @@ end
 
 `params.inspect` の表示順は重要ではありません。注目するのは、`title`、`director`、`year`、`genre`、`description` というキーと、入力した値が届いていることです。
 
-タイトルを空欄で送ると、`"title" => ""` のように空文字として届きます。空文字を保存してよいかどうかは、サーバー側で確認する必要があります。本書では保存と表示の流れに集中し、入力チェックは Rails の学習へ委ねます。
+タイトルを空欄で送ると、`"title" => ""` のように空文字として届きます。ここでは、入力欄のキーは残り、その値が空文字になることを確認してください。
 
 確認用レスポンスからフォームへ戻るには、ブラウザの戻るボタンを使ってください。第5章では、送信後に別の画面へ移動する処理へ変えます。
 
@@ -231,7 +233,7 @@ Network パネルの表示名は Chrome のバージョンによって少し変�
 
 | HTML | Network パネル / Sinatra |
 | --- | --- |
-| `<form action="/movies">` | Request URL が `/movies` |
+| `<form action="/movies">` | Request URL のパスが `/movies` |
 | `<form method="post">` | Request Method が `POST` |
 | `name="title"` | Form Data と `params` のキー `title` |
 | 入力したタイトル | Form Data と `params["title"]` の値 |
@@ -240,7 +242,7 @@ Network パネルの表示名は Chrome のバージョンによって少し変�
 
 <figure class="book-figure">
   <img src="../assets/captures/capture-5.jpg" alt="入力済みの映画登録フォームと、同じ値が title、director、year、genre、description の Form Data として並ぶ Payload の比較">
-  <figcaption>図 4-2 フォームの入力欄と Form Data の対応</figcaption>
+  <figcaption>図 4-2 フォームの入力欄と Form Data の対応（説明図）</figcaption>
 </figure>
 
 `POST` にしただけで、送信内容が秘密になるわけではありません。Network パネルを見れば、このように送信された値を確認できます。ここでは安全性ではなく、フォームがどのリクエストを作るのかを観察しています。
@@ -407,7 +409,7 @@ end
 </form>
 ```
 
-第4章では、`public/stylesheets/application.css` に次の CSS を追加しました。
+第4章では、`public/stylesheets/application.css` に次の CSS を追加します。
 
 ```css
 a {

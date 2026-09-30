@@ -82,7 +82,7 @@ DELETE /movies/:id
 GET /movies
 ```
 
-更新と削除では、Network タブ上は PATCH や DELETE ではなく、POST と `_method` として見えます。この章では、全体の設計を先に図で見てから、Network タブと Sinatra ログで実際の見え方を確認します。
+更新と削除では、Network パネル上は PATCH や DELETE ではなく、POST と `_method` として見えます。この章では、全体の設計を先に図で見てから、Network パネルと Sinatra ログで実際の見え方を確認します。
 
 ## 8.3 直接 HTML を返すと何が困るのか
 
@@ -109,9 +109,9 @@ end
 
 ## 8.4 登録後の流れを見る
 
-Chrome DevTools の Network タブを開き、`/movies/new` から映画を登録してください。リダイレクト前後のリクエストを見失う場合は、Network タブの Preserve log を有効にしてから操作すると追いやすくなります。
+Chrome DevTools の Network パネルを開き、`/movies/new` から映画を登録してください。リダイレクト前後のリクエストを見失う場合は、Network パネルの Preserve log を有効にしてから操作すると追いやすくなります。
 
-Network タブには、次の流れが表示されます。
+Network パネルには、次の流れが表示されます。
 
 ```text
 POST /movies
@@ -127,7 +127,7 @@ GET /movies/:id
 
 <figure class="book-figure">
   <img src="../assets/captures/capture-10.jpg" alt="POST movies、303 See Other と Location、GET movies slash id の三段階を矢印で結んだ PRG の確認例">
-  <figcaption>図 8-1 Post、Redirect、Get の三段階</figcaption>
+  <figcaption>図 8-1 Post、Redirect、Get の三段階（説明図。作成される UUID は毎回異なる）</figcaption>
 </figure>
 
 ## 8.5 再読み込みで何が起きるか
@@ -150,7 +150,7 @@ PRG パターンは、処理後の見た目を整えるためだけのもので�
 
 次に、映画の詳細画面から編集画面へ移動し、映画を更新してください。
 
-HTML フォームは PATCH を直接送れません。そのため、Network タブでは次のように見えます。
+HTML フォームは PATCH を直接送れません。そのため、Network パネルでは次のように見えます。
 
 ```text
 POST /movies/:id
@@ -167,7 +167,7 @@ GET /movies/:id
 "PATCH /movies/:id HTTP/1.1" 303
 ```
 
-Network タブの POST と、Sinatra ログの PATCH は矛盾していません。ブラウザは POST を送り、Rack が `_method=patch` を見て、Sinatra へ PATCH として渡しています。
+Network パネルの POST と、Sinatra ログの PATCH は矛盾していません。ブラウザは POST を送り、Rack が `_method=patch` を見て、Sinatra へ PATCH として渡しています。
 
 更新後に表示されている詳細画面で再読み込みすると、送られるのは `GET /movies/:id` です。更新処理は再実行されません。
 
@@ -177,7 +177,7 @@ Network タブの POST と、Sinatra ログの PATCH は矛盾していません
 
 削除も同じ考え方です。詳細画面の削除フォームは、POST と `_method=delete` を送ります。
 
-Network タブでは次のように見えます。
+Network パネルでは次のように見えます。
 
 ```text
 POST /movies/:id
@@ -241,23 +241,25 @@ end
 
 ## 確認しよう
 
-1. 映画を登録し、Network タブで `POST /movies`、`303 See Other`、`GET /movies/:id` を確認する。
+1. 映画を登録し、Network パネルで `POST /movies`、`303 See Other`、`GET /movies/:id` を確認する。
 2. 登録後の詳細画面で再読み込みし、送られるのが `GET /movies/:id` であることを確認する。
    JSON ファイルの件数が増えないことも確認する。
-3. 映画を更新し、Network タブで POST と `_method=patch`、Sinatra のログで PATCH を確認する。
+3. 映画を更新し、Network パネルで POST と `_method=patch`、Sinatra のログで PATCH を確認する。
 4. 更新後の詳細画面で再読み込みし、更新処理が再実行されないことを確認する。
-5. 映画を削除し、Network タブで POST と `_method=delete`、Sinatra のログで DELETE を確認する。
+5. 映画を削除し、Network パネルで POST と `_method=delete`、Sinatra のログで DELETE を確認する。
 6. 削除後の一覧画面で再読み込みし、削除処理が再実行されないことを確認する。
 
 ## 考えてみよう
 
 - なぜ登録、更新、削除の後に直接 HTML を返さないのでしょうか。
-- Network タブでは POST と表示されるのに、Sinatra のログでは PATCH や DELETE と表示されるのはなぜでしょうか。
+- Network パネルでは POST と表示されるのに、Sinatra のログでは PATCH や DELETE と表示されるのはなぜでしょうか。
 - `GET /` から `/movies` へのリダイレクトと、登録後のリダイレクトは何が違うのでしょうか。
 
 ## さらに学ぶ
 
-確認画面を含む送信の流れを深めるには、リダイレクトの種類と、送信後の再読み込みを安全に扱う設計を調べます。
+送信後の画面遷移を深めるには、リダイレクトの種類と、送信後の再読み込みを安全に扱う設計を調べます。
+
+## 参考資料
 
 - [MDN HTTP リダイレクト](https://developer.mozilla.org/ja/docs/Web/HTTP/Redirections)では、恒久的・一時的なリダイレクトの違いと、ブラウザが次の要求を作る仕組みを学べます。
 - [MDN 303 See Other](https://developer.mozilla.org/ja/docs/Web/HTTP/Status/303)では、POST 後に GET で別ページを表示させる 303 の役割を学べます。

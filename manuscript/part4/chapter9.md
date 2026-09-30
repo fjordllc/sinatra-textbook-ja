@@ -32,7 +32,7 @@ end
 
 ## 9.2 XSS とは
 
-XSS は、Cross-site scripting の略です。利用者入力などをきっかけに、ブラウザへ意図しない HTML や JavaScript を解釈させてしまう問題です。JavaScript が実行される場合だけでなく、タグ構造や属性値が壊れることも問題になります。
+XSS（クロスサイトスクリプティング）は、Cross-site scripting の略です。攻撃者が用意したスクリプトが、Web サイトの一部として利用者のブラウザで実行されてしまう問題です。エスケープの不足は、XSS だけでなく、HTML のタグ構造や属性値が壊れる原因にもなります。
 
 この章では、攻撃手法を広く学ぶのではなく、Web アプリケーションを作るときの基本として、利用者入力をそのまま HTML にしないことを学びます。
 
@@ -90,7 +90,7 @@ HTML レスポンスを見ると、実際には次のように文字参照へ変
 
 <figure class="book-figure">
   <img src="../assets/captures/capture-11.jpg" alt="script タグを含む同じ入力について、文字として表示する安全な状態と、HTML として解釈される危険な状態を並べた比較">
-  <figcaption>図 9-1 エスケープした表示とエスケープしない表示の違い</figcaption>
+  <figcaption>図 9-1 エスケープした表示とエスケープしない表示の違い（説明図。URL の UUID は例）</figcaption>
 </figure>
 
 ```erb
@@ -258,6 +258,8 @@ description.gsub("\n", "<br>")
 ## さらに学ぶ
 
 入力値を安全に表示する理由を深めるには、攻撃の成立条件と、出力する場所に合ったエスケープを学びます。
+
+## 参考資料
 
 - [OWASP XSS](https://owasp.org/www-community/attacks/xss/)では、クロスサイトスクリプティングが成立する仕組み、代表的な種類、基本的な防御を学べます。
 - [MDN Cross-site scripting](https://developer.mozilla.org/ja/docs/Glossary/Cross-site_scripting)では、ブラウザ上で不正なスクリプトが実行される危険を、Web の基礎用語と結び付けて確認できます。

@@ -19,11 +19,11 @@
 
 「なんか動かない」では、見る場所を決められません。URL、操作、期待した結果、実際の結果を分けます。
 
-## 11.2 ブラウザの表示と Network タブを分けて見る
+## 11.2 ブラウザの表示と Network パネルを分けて見る
 
 ブラウザに表示された画面は、結果の一部です。Web アプリケーションでは、画面の裏で HTTP リクエストとレスポンスが発生しています。
 
-Network タブでは、次を確認します。
+Network パネルでは、次を確認します。
 
 - URL
 - HTTP メソッド
@@ -49,7 +49,7 @@ Network タブでは、次を確認します。
 "PATCH /movies/b6f5e1c4-4b5f-4a7f-8f8f-3d9d3ef9d001 HTTP/1.1" 303
 ```
 
-Network タブでは POST と `_method=patch` が見えます。Sinatra のログでは、Rack の method override を通過した後の PATCH が見えます。
+Network パネルでは POST と `_method=patch` が見えます。Sinatra のログでは、Rack の method override を通過した後の PATCH が見えます。
 
 削除も同じです。
 
@@ -57,7 +57,7 @@ Network タブでは POST と `_method=patch` が見えます。Sinatra のロ�
 "DELETE /movies/b6f5e1c4-4b5f-4a7f-8f8f-3d9d3ef9d003 HTTP/1.1" 303
 ```
 
-ログを見ると、どのルートまで届いたのか、どのステータスコードを返したのかが分かります。
+ログを見ると、どの HTTP メソッド・パスへのリクエストに、どのステータスコードを返したのかが分かります。
 
 ## 11.4 `params` と JSON ファイルを見る
 
@@ -90,7 +90,7 @@ JSON ファイルを手で直して確認したくなることもあります。
 
 <figure class="book-figure">
   <img src="../assets/captures/capture-13.jpg" alt="一回の登録操作について、ブラウザの Form Data、Sinatra の POST とステータス、JSON に保存された値を三列で対応付けた確認例">
-  <figcaption>図 11-1 送信、処理、保存を三つの場所で確認する</figcaption>
+  <figcaption>図 11-1 送信、処理、保存を三つの場所で確認する（説明図）</figcaption>
 </figure>
 
 ## 11.5 ERB のエラーを読む
@@ -136,10 +136,10 @@ ERB に文法ミスがあると、画面には 500 が表示されることが�
 
 | 症状 | 最初に見る場所 |
 | --- | --- |
-| フォームを送っても値が届かない | Network タブの Form Data、フォーム部品の `name` |
+| フォームを送っても値が届かない | Network パネルの Form Data、フォーム部品の `name` |
 | 登録後に増えない | `POST /movies` のステータス、`data/movies.json` |
-| 更新しても変わらない | Network タブの `_method=patch`、Sinatra ログ、JSON |
-| 削除しても残る | Network タブの `_method=delete`、Sinatra ログ、JSON |
+| 更新しても変わらない | Network パネルの `_method=patch`、Sinatra ログ、JSON |
+| 削除しても残る | Network パネルの `_method=delete`、Sinatra ログ、JSON |
 | 404 になる | URL、映画 ID、JSON 内の ID |
 | 500 になる | ターミナルのエラーメッセージ、ERB の行番号 |
 | 画面が崩れる | HTML 構造、`layout.erb` と各 ERB、CSS |
@@ -151,7 +151,7 @@ ERB に文法ミスがあると、画面には 500 が表示されることが�
 
 例えば、JSON ファイルを `public/` に置いてしまった場合、ブラウザから直接読める場所に保存データを置くことになります。保存場所の問題は、画面ではなくディレクトリ構成を見る必要があります。
 
-POST 後に直接 HTML を返してしまった場合、再読み込みで再送信が起きる可能性があります。これは、Network タブで POST 後に GET へ移っているかを見る必要があります。
+POST 後に直接 HTML を返してしまった場合、再読み込みで再送信が起きる可能性があります。これは、Network パネルで POST 後に GET へ移っているかを見る必要があります。
 
 紹介文の改行表示を Ruby の `gsub("\n", "<br>")` で作ると、利用者入力と HTML 生成が混ざります。これは、表示の見た目だけではなく、XSS とエスケープの観点で確認します。
 
@@ -164,14 +164,14 @@ POST 後に直接 HTML を返してしまった場合、再読み込みで再送
 ただし、付録を読む前に、まず自分で次を確認してください。
 
 - どの操作で再現するか。
-- Network タブでは何が起きているか。
+- Network パネルでは何が起きているか。
 - Sinatra のログには何が出ているか。
 - JSON ファイルはどう変わっているか。
 - ERB のエラーメッセージは何を指しているか。
 
 会話やレビューで質問するときも、この情報があると状況を伝えやすくなります。
 
-質問するときは、再現手順、期待した結果、実際の結果を分けて書きます。Network タブで見えたメソッドとステータスコード、ターミナルに出たログも添えます。情報を分けて書くと、相手が同じ状況を追いやすくなります。
+質問するときは、再現手順、期待した結果、実際の結果を分けて書きます。Network パネルで見えたメソッドとステータスコード、ターミナルに出たログも添えます。情報を分けて書くと、相手が同じ状況を追いやすくなります。
 
 次の章では、ここで確認した `data/movies.json` に注目します。JSON ファイルを読んで切り分けられるようになったうえで、ファイル保存にはどのような限界があるのかを考えます。
 
@@ -181,9 +181,9 @@ POST 後に直接 HTML を返してしまった場合、再読み込みで再送
 
 ## 確認しよう
 
-1. 映画を登録し、Network タブ、Sinatra ログ、`data/movies.json` の 3 つを見比べる。
-2. 映画を更新し、Network タブの `_method=patch` と Sinatra ログの PATCH を見比べる。
-3. 存在しない映画 ID にアクセスし、Network タブの 404 と JSON 内の ID を見比べる。
+1. 映画を登録し、Network パネル、Sinatra ログ、`data/movies.json` の 3 つを見比べる。
+2. 映画を更新し、Network パネルの `_method=patch` と Sinatra ログの PATCH を見比べる。
+3. 存在しない映画 ID にアクセスし、Network パネルの 404 と JSON 内の ID を見比べる。
 4. `views/show.erb` を読むだけで、`layout.erb` と役割が分かれていることを確認する。
 
 ## 考えてみよう
@@ -195,6 +195,8 @@ POST 後に直接 HTML を返してしまった場合、再読み込みで再送
 ## さらに学ぶ
 
 不具合を自力で調べる力を伸ばすには、ブラウザとサーバーのどちらで事実を観察できるかを増やしていきます。
+
+## 参考資料
 
 - [MDN ブラウザ開発者ツール](https://developer.mozilla.org/ja/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools)では、Network パネルだけでなく、HTML、CSS、JavaScript、コンソールを調べる各ツールの役割を学べます。
 - [Sinatra 公式ドキュメント](https://sinatrarb.com/intro.html)では、開発環境のログ、エラー画面、設定を確認し、サーバー側の問題を切り分ける手掛かりを得られます。

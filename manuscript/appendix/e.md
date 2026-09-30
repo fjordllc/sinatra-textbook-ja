@@ -28,7 +28,7 @@ HTTP メソッド、ステータスコード、ヘッダー、リダイレクト
 
 - MDN ブラウザ開発者ツール: <https://developer.mozilla.org/ja/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools>
 
-Network タブ以外にも、HTML、CSS、コンソールなどを確認する機能があります。Firefox などのブラウザにも同じような開発者ツールがあります。
+Network パネル以外にも、HTML、CSS、コンソールなどを確認する機能があります。Firefox などのブラウザにも同じような開発者ツールがあります。
 
 ## REST
 

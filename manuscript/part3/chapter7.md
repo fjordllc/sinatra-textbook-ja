@@ -35,7 +35,7 @@ enable :method_override
 
 これにより、POST に `_method=patch` が含まれていると、Rack がメソッドを PATCH に読み替えます。その後、Sinatra の `patch "/movies/:id"` ルートで処理されます。
 
-Network タブでは、ブラウザが送ったリクエストは POST として見えます。Form Data に `_method=patch` や `_method=delete` が含まれていることを確認します。Rack を通過した後に PATCH や DELETE として処理されたことは、Sinatra のログで確認します。
+Network パネルでは、ブラウザが送ったリクエストは POST として見えます。Form Data に `_method=patch` や `_method=delete` が含まれていることを確認します。Rack を通過した後に PATCH や DELETE として処理されたことは、Sinatra のログで確認します。
 
 ## 7.3 編集画面を表示する
 
@@ -52,30 +52,63 @@ end
 
 `GET /movies/:id/edit` は編集フォームを表示するためのルートです。ここではまだデータを更新しません。
 
-このルートも、`GET /movies/:id` より前に書きます。`/movies/:id/edit` は、1 件の映画を表す URL に `/edit` が付いた形です。具体的なルートを先に書くことで、Sinatra が意図したルートへ到達しやすくなります。
+ここでは関連する GET ルートをまとめるため、`GET /movies/:id` の前に書きます。通常の `:id` は `/` を越えて `/edit` まで取り込まないため、この二つは順番を逆にしても区別されます。第6章の `/movies/new` と `/movies/:id` が衝突する場合とは異なります。
 
 ## 7.4 編集フォームを作る
 
-`views/edit.erb` を作ります。登録フォームとよく似ていますが、送信先と `_method` が違います。
+`views/edit.erb` を作り、次の内容を書きます。更新を試す前に、5 項目すべての入力欄と送信ボタンを用意します。
 
 ```erb
+<h1>映画編集</h1>
+
+<p>登録済みの映画情報を変更します。</p>
+
 <form class="movie-form" action="/movies/<%= h(@movie["id"]) %>" method="post">
   <input type="hidden" name="_method" value="patch">
+
+  <div class="form-field">
+    <label for="title">タイトル</label>
+    <input type="text" id="title" name="title" value="<%= h(@movie["title"]) %>">
+  </div>
+
+  <div class="form-field">
+    <label for="director">監督</label>
+    <input type="text" id="director" name="director" value="<%= h(@movie["director"]) %>">
+  </div>
+
+  <div class="form-field">
+    <label for="year">公開年</label>
+    <input type="text" id="year" name="year" value="<%= h(@movie["year"]) %>">
+  </div>
+
+  <div class="form-field">
+    <label for="genre">ジャンル</label>
+    <select id="genre" name="genre">
+      <option value="アクション" <%= "selected" if @movie["genre"] == "アクション" %>>アクション</option>
+      <option value="コメディ" <%= "selected" if @movie["genre"] == "コメディ" %>>コメディ</option>
+      <option value="ドラマ" <%= "selected" if @movie["genre"] == "ドラマ" %>>ドラマ</option>
+      <option value="ホラー" <%= "selected" if @movie["genre"] == "ホラー" %>>ホラー</option>
+      <option value="SF" <%= "selected" if @movie["genre"] == "SF" %>>SF</option>
+      <option value="アニメーション" <%= "selected" if @movie["genre"] == "アニメーション" %>>アニメーション</option>
+      <option value="その他" <%= "selected" if @movie["genre"] == "その他" %>>その他</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="description">紹介文</label>
+    <textarea id="description" name="description" rows="5"><%= h(@movie["description"]) %></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit">更新する</button>
+    <a href="/movies/<%= h(@movie["id"]) %>">詳細へ戻る</a>
+  </div>
+</form>
 ```
 
 フォームの `method` は `post` です。`_method` に `patch` を入れることで、Sinatra 側では `PATCH /movies/:id` として扱います。
 
-編集フォームでは、登録済みの値を最初から入れておきます。
-
-```erb
-<input type="text" id="title" name="title" value="<%= h(@movie["title"]) %>">
-```
-
-`textarea` も登録済みの紹介文を入れます。
-
-```erb
-<textarea id="description" name="description" rows="5"><%= h(@movie["description"]) %></textarea>
-```
+`input` の `value` 属性と `textarea` の開始タグ・終了タグの間には、保存済みの値を `h` に通して入れます。ジャンルは、保存済みの値と一致する `option` に `selected` を付け、現在の選択を表示します。送信する 5 項目が揃うことで、タイトルだけを変更した場合も、ほかの項目の値を一緒に送れます。
 
 登録フォームと編集フォームには共通する部分が多くあります。実務では部分テンプレートにまとめることもありますが、この章では送信先や `_method` の違いを読みやすくするため、別々の ERB として書きます。
 
@@ -124,7 +157,7 @@ end
 
 <figure class="book-figure">
   <img src="../assets/captures/capture-8.jpg" alt="映画詳細画面の下部に、一覧へ戻る、編集する、削除するの三つの操作が並ぶ完成画面">
-  <figcaption>図 7-1 詳細画面に集まる編集と削除の入口</figcaption>
+  <figcaption>図 7-1 詳細画面に集まる編集と削除の入口（説明図）</figcaption>
 </figure>
 
 ```erb
@@ -189,9 +222,9 @@ ID が一致する映画を見つけ、配列から削除し、JSON ファイル
 
 削除後のリダイレクトも、第8章で PRG の流れとして見直します。
 
-## 7.9 Network タブとログで確認する
+## 7.9 Network パネルとログで確認する
 
-編集フォームから更新すると、Network タブでは次のように見えます。
+編集フォームから更新すると、Network パネルでは次のように見えます。
 
 ```text
 POST /movies/:id
@@ -203,8 +236,8 @@ GET /movies/:id
 ブラウザが実際に送っているのは POST です。Sinatra のログでは、Rack の method override を通過した後の `PATCH /movies/:id` を確認できます。
 
 <figure class="book-figure">
-  <img src="../assets/captures/capture-9.jpg" alt="ブラウザの POST、Form Data の method equals patch、Sinatra ログの PATCH を三段階で対応付けた確認例">
-  <figcaption>図 7-2 POST が method override により PATCH として処理されるまで</figcaption>
+  <img src="../assets/captures/capture-9.jpg" alt="ブラウザの POST、Form Data の _method=patch、Sinatra ログの PATCH を三段階で対応付けた確認例">
+  <figcaption>図 7-2 POST が method override により PATCH として処理されるまで（説明図）</figcaption>
 </figure>
 
 削除も同じです。
@@ -216,7 +249,7 @@ Form Data: _method=delete
 GET /movies
 ```
 
-Network タブだけを見て「PATCH や DELETE が送られていない」と判断しないでください。HTML フォームの制約により、ブラウザは POST を送ります。`_method` を見て Rack がメソッドを読み替え、Sinatra の `patch` や `delete` のルートへ届きます。
+Network パネルだけを見て「PATCH や DELETE が送られていない」と判断しないでください。HTML フォームの制約により、ブラウザは POST を送ります。`_method` を見て Rack がメソッドを読み替え、Sinatra の `patch` や `delete` のルートへ届きます。
 
 ## 7.10 この章の完成コード
 
@@ -438,10 +471,10 @@ end
 
 1. 詳細画面から編集画面へ移動できることを確認する。
 2. タイトルを変更して更新し、詳細画面に変更後の値が表示されることを確認する。
-3. Network タブで、更新時に POST と `_method=patch` が見えることを確認する。
+3. Network パネルで、更新時に POST と `_method=patch` が見えることを確認する。
 4. Sinatra のログで、更新が PATCH として処理されていることを確認する。
 5. 詳細画面から削除し、一覧画面へ戻ることを確認する。
-6. Network タブで、削除時に POST と `_method=delete` が見えることを確認する。
+6. Network パネルで、削除時に POST と `_method=delete` が見えることを確認する。
 7. Sinatra のログで、削除が DELETE として処理されていることを確認する。
 8. 削除後に、削除した映画の詳細 URL へアクセスすると 404 になることを確認する。
 
@@ -454,6 +487,8 @@ end
 ## さらに学ぶ
 
 編集と削除の先へ進むなら、HTTP メソッドの意味と、HTML フォームの制約を Rack と Sinatra がどう補うかを調べます。
+
+## 参考資料
 
 - [MDN PATCH](https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/PATCH)では、リソースの一部を変更する PATCH の意味と、PUT との違いを学べます。
 - [MDN DELETE](https://developer.mozilla.org/ja/docs/Web/HTTP/Methods/DELETE)では、削除を表すメソッドの性質と、同じ要求を繰り返した場合の考え方を学べます。

@@ -6,7 +6,7 @@
 
 この章は、第2章で作った `sinatra-movies` ディレクトリでそのまま続けます。第3章から読み始める場合は、第2章の最後（2.11）に示した `app.rb` を用意した状態から始めてください。
 
-## 3.1 文字列ではなく HTML を返す
+## 3.1 HTML を含む文字列を返す
 
 第2章の `app.rb` は、次の状態で終わりました。
 
@@ -255,7 +255,7 @@ ERB の書き間違いで `500 Internal Server Error` が表示された場合�
 
 これらは、後の章で利用者がフォームから入力する項目でもあります。
 
-この章の一覧画面では、`title`、`year`、`genre` だけを使います。`director` と `description` は、後の詳細画面で使います。ここでは、一覧に必要な情報だけを ERB へ渡して表示する流れに集中します。
+この章の一覧画面では、`title`、`year`、`genre` だけを使います。`director` と `description` は、後の詳細画面で使います。ここでは、ERB へ渡したデータから一覧に必要な情報を選んで表示する流れに集中します。
 
 ## 3.7 `public/` に CSS を置く
 
@@ -395,7 +395,7 @@ h1 {
 
 <figure class="book-figure">
   <img src="../assets/captures/capture-3.jpg" alt="Network パネルに movies の document と application.css の stylesheet が別々の GET として並ぶ確認例">
-  <figcaption>図 3-1 HTML と CSS に対する別々のリクエスト</figcaption>
+  <figcaption>図 3-1 HTML と CSS に対する別々のリクエスト（説明図）</figcaption>
 </figure>
 
 第2章では `GET /movies` が短い文字列を返していました。この章では、同じ `GET /movies` が HTML 文書を返すようになりました。URL とルートの対応は同じでも、ルートの処理を変えることでレスポンス本文の内容が変わります。

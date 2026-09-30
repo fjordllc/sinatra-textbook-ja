@@ -30,7 +30,7 @@
 - 詳細画面の表示にも `h` ヘルパーを使う。
 - 紹介文の改行表示に `white-space: pre-line` を使う。
 
-## Network タブなどで観察する対象
+## Network パネルなどで観察する対象
 
 - 一覧表示の `GET /movies`。
 - 詳細表示の `GET /movies/:id`。
