@@ -33,7 +33,7 @@ end
 /movies/b6f5e1c4-4b5f-4a7f-8f8f-3d9d3ef9d001
 ```
 
-Sinatra では、ルートに `:id` のように書くと、その部分を `params["id"]` として取り出せます。
+Sinatra では、ルートに `:id` のように書くと、その部分を `params["id"]` として取り出せます。次は仕組みを示す説明例です。ここでは `app.rb` に追加せず、6.4 で詳細画面用のルートを追加します。
 
 ```ruby
 get "/movies/:id" do
@@ -68,6 +68,8 @@ end
 URL で指定された ID が、保存されている映画の ID と一致すれば、映画を表示できます。一致する映画がなければ、表示する内容はありません。その場合は Sinatra の `halt` で処理を止め、404 ステータスコードとメッセージを返します。
 
 この処理を含む `GET /movies/:id` を追加します。ルートの並びでは、`get "/movies/new"` の後、`post "/movies"` の前へ置きます。
+
+6.2 の説明例を試しに追加した場合は、そのルートを次のコードへ置き換えてください。同じ `get "/movies/:id"` を二つ残すと、先に書いたルートが使われ、詳細画面の処理へ進めません。
 
 ```ruby
 get "/movies/:id" do
@@ -206,14 +208,9 @@ redirect "/movies"
 
 詳細画面ができたので、登録した映画をすぐ確認できるように、登録後は詳細画面へ移動します。
 
-`POST /movies` の後半を次のように変更します。
+`POST /movies` の最後にある `redirect "/movies"` を、次の 1 行へ置き換えます。
 
 ```ruby
-movies = load_movies
-movie = { "id" => SecureRandom.uuid }.merge(movie_params)
-movies << movie
-save_movies(movies)
-
 redirect "/movies/#{movie["id"]}"
 ```
 
